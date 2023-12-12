@@ -1,0 +1,73 @@
+.tokenDeployer {
+    width: 400px;
+    padding: 20px;
+    background-color: #313131;
+    border-radius: 10px;
+    margin: calc(37px + 1.4em + 30px) auto;
+}
+
+.inputGroup {
+    margin-bottom: 20px;
+}
+
+.inputTitle {
+    font-size: 1.2em;
+    margin-bottom: 5px;
+    color: #f5f5f5;
+}
+
+.inputDescription {
+    margin-top: 5px;
+    font-size: 0.8em;
+    color: #aaa;
+}
+
+.tokenInput {
+    font-size: 1em;
+    padding: 8px;
+    border-radius: 5px;
+    outline: none;
+    width: 380px;
+    transition: border-color 0.5s ease-in-out;
+    background-color: #444;
+    color: #f5f5f5;
+    border: none; 
+}
+
+.deployButton {
+    color: white;
+    border-radius: 25px;
+    background-color: #ffbd43;
+    border: none;
+    padding: 12px;
+    font-size: 1em;
+    cursor: pointer;
+    width: 100%;
+}
+
+.invalid {
+    border: 2px solid #ff6b6b;
+}
+
+.valid {
+    border: 2px solid #6eff93; 
+}
+
+.neutral {
+    border: 2px solid #888;
+}
+
+.error {
+    color: #ff6b6b; 
+    margin: 2px 0px;
+}
+
+.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+.title {
+    font-size: 1.5em;
+    margin: 0;
+    color: white;
+}

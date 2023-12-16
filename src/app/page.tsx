@@ -1,10 +1,9 @@
 import styles from "./page.module.css";
-import { Metadata } from "next";
 
-export const metadata: Metadata = {
-    title: 'Bedrock Finance | Create No-Code ERC20 Cryptocurrencies',
+export const metadata = {
+    title: 'Home | Bedrock Finance | Create No-Code Cryptocurrencies',
     description: 'With Bedrock Finance you can tokenize assets in seconds. Tokens are gas efficient, safe and have undergone extensive testing.',
-  }
+}
 
 export default function Home() {
     return (
@@ -40,38 +39,37 @@ export default function Home() {
                         <div className={styles.timelineItem}>
                             <div className={styles.timelineContent}>
                                 <h2>Q4 2023</h2>
-                                <p>Launch BedrockMint v1 on Fantom (FTM)</p>
+                                <p>✅ Launch BedrockMint v1 on Fantom (FTM)</p>
                             </div>
                         </div>
                         <div className={styles.timelineItem}>
                             <div className={styles.timelineContent}>
                                 <h2>Q1 2024</h2>
-                                <p>Add more wallet connection options</p>
-                                <p>Launch on two more chains</p>
-                                <p>Add explorer contract verification</p>
-                                <p>Create Discord, YouTube and Twitter</p>
+                                <p>✅ Add more wallet connection options</p>
+                                <p>❌Launch on two more chains</p>
+                                <p>❌Create Discord, YouTube and Twitter</p>
                             </div>
                         </div>
                         <div className={styles.timelineItem}>
                             <div className={styles.timelineContent}>
                                 <h2>Q2 2024</h2>
-                                <p>Develop and launch BedrockMint v2 on three chains</p>
-                                <p>Complete major UI/UX updates</p>
+                                <p>❌Develop and launch BedrockMint v2 on three chains</p>
+                                <p>✅Complete major UI/UX updates</p>
                             </div>
                         </div>
                         <div className={styles.timelineItem}>
                             <div className={styles.timelineContent}>
                                 <h2>S2 2024</h2>
-                                <p>Launch BedrockMint v2 on two more chains</p>
-                                <p>Build blog and newsletter</p>
+                                <p>❌Launch BedrockMint v2 on two more chains</p>
+                                <p>❌Build blog and newsletter</p>
                             </div>
                         </div>
                         <div className={styles.timelineItem}>
                             <div className={styles.timelineContent}>
                                 <h2>2025</h2>
-                                <p>Launch Bedrock Finance $BDRK</p>
-                                <p>Build blog and newsletter</p>
-                                <p>Launch a second Dapp along with BedrockMint</p>
+                                <p>❌Launch Bedrock Finance $BDRK</p>
+                                <p>❌Build crypto blog</p>
+                                <p>❌Launch a second Dapp along with BedrockMint</p>
                             </div>
                         </div>
                     </div>

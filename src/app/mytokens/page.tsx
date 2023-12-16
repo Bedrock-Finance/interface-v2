@@ -1,12 +1,12 @@
 "use client";
 
 import { tokenDeployerABI } from '@/ABIs/tokenDeployer';
-import { ERC20ABI } from '@/ABIs/ERC20';
 import { RPC } from '../../Constants/config';
 import { contractAddress } from "../../Constants/config";
 import { useState, useEffect } from "react";
 import Web3 from "web3";
 import styles from "./page.module.css";
+import { erc20ABI } from 'wagmi';
 
 interface Token {
     contractAddress: string;
@@ -39,7 +39,7 @@ export default function MyTokens(): JSX.Element {
                         const data: string[] = await tokenDeployer.methods.getTokensDeployedByUser(accounts[0]).call();
                         const tokens: Token[] = [];
                         for (let contracts = 0; contracts < data.length; contracts++) {
-                            const token = await new web3.eth.Contract(ERC20ABI, data[contracts]);
+                            const token = await new web3.eth.Contract(erc20ABI, data[contracts]);
                             const tokenName: string = await token.methods.name().call();
                             const tokenSymbol: string = await token.methods.symbol().call();
                             const totalSupply = await token.methods.totalSupply().call();

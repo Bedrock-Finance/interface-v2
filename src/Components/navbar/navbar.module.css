@@ -1,4 +1,4 @@
-.mobile, .desktop {
+.navbar {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -6,16 +6,18 @@
     position: fixed;
     top: 0;
     width: 100%;
-    background-color: #f5f5f5;
+    background: rgba(56, 56, 56, 0.83);
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(12.4px);
+-webkit-backdrop-filter: blur(12.4px);
     z-index: 11;
+    color: rgb(207, 207, 207);
 }
 
 .navbarLi {
     float: right;
     font-size: 1.4em;
-}
-.navbarLi {
-    margin: 15px 30px;
+    margin: 15px 15px;
 }
 
 .navLogo {
@@ -28,80 +30,55 @@
     display: inline-block;
 }
 
-.mobile {
-    display: none;
-}
 
 .navLeft {
     float: left;
 }
+
 .menu {
     display: none;
 }
 
-@media screen and (max-width: 750px) {
-    .navbarLi {
-        margin: 15px 30px;
-    }
-    .connectButton {
-        margin: 15px 0px;
-    }
-    
-    .mobile {
-        display: inline-block;
-    }
-
-    .desktop {
-        display: none;
-    }
-
-    .mobile {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-        position: fixed;
-        top: 0;
-        width: 100%;
-        background-color: #f5f5f5;
-        
-    }
-    .menu {
-        display: block;
-        width: 100%;
-        height: 100%;
-        position: fixed;
-        background-color: #f5f5f5;
-        z-index: 10;
-        overflow:hidden;
-        padding-top: calc(40px + 1.9em);
-        transition: transform 0.6s ease-in-out; /* Adding a transition */
-        top: 0;
-    }
-
-    .navElement {
-        margin: 20px;
-    }
-    .menuOpen {
-        transform: translateX(0);
-    }
-    .menuClosed {
-        transform: translateX(-100%);
-    }
+.menu {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background-color: #f5f5f5;
+    z-index: 10;
+    overflow: hidden;
+    padding-top: calc(40px + 1.9em);
+    transition: transform 0.6s ease-in-out;
+    /* Adding a transition */
+    top: 0;
 }
+
+.navElement {
+    margin: 20px;
+}
+
+.menuOpen {
+    transform: translateX(0);
+}
+
+.menuClosed {
+    transform: translateX(-100%);
+}
+
 .connectionOptions {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 10px;
-    background-color:#2c2c2c;
+    background-color: #2c2c2c;
     border-radius: 10px;
     max-width: 400px;
     width: 100%;
-    z-index: 13;
+    z-index: 13;    
     color: white;
 }
+
 .connectionOption {
     padding: 10px;
     display: block;
@@ -109,22 +86,138 @@
     margin: 10px;
     font-size: 1.3em;
     border-radius: 10px;
-    background-color: #ffbd43;
+    background-color: #505050;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
     color: #f5f5f5;
     outline: none;
     border: none;
+    cursor: pointer;
 }
+
 .connectionHeading {
     color: #f5f5f5;
     font-size: 1.6em;
     margin: 0;
-    text-align: center;
+    padding: 0 10px;
 }
+
 .connectButton {
-    background-color:#ffbd43;
+    background-color: #ffbd43;
     border: none;
     color: white;
     border-radius: 25px;
-    padding: 5px 10px;
     width: fit-content;
+    cursor: pointer;
+}
+.connectionDesc {
+    padding: 0 10px;
+    color: white;
+    margin-top: 10px;
+}
+.connectText {
+    display: inline;
+    margin: none;
+    padding: 0 5px;
+}
+
+.dropdownIcon {
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+.dropdown {
+    position: fixed;
+    right: 0;
+    top: calc(44px + 1.4em);
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    border: 2px solid rgb(225, 225, 225);
+    max-width: 200px;
+    width: 100%;
+}
+
+.dropdownOption {
+    margin: 0;
+    vertical-align: middle;
+    padding: 10px;
+    border-bottom: 2px solid rgb(225, 225, 225);
+}
+
+.dropdownOption:last-child {
+    border: none;
+}
+
+.walletIcon {
+    display: inline-block;
+    border: white 3px solid;
+    border-radius: 25px;
+    width: calc(1.4em);
+    height: calc(1.4em);
+    background-color: #f1a517;
+}
+
+.walletIconImage {
+    margin: auto auto;
+    margin-left: calc((1.4em) / 2 - 10px)
+}
+
+.connectButtonText {
+    margin: 5px;
+}
+
+.connectMenuOpen {
+    display: block;
+}
+
+.connectMenuClosed {
+    display: none;
+}
+
+.menuIcon {
+    display: none;
+}
+@media screen and (min-width: 570px) {
+    .menu {
+        display: none;
+    }
+}
+@media screen and (max-width: 570px) and (min-width: 470px) {
+    .factoryButton {
+        display: none;
+    }
+    .menuIcon {
+        display: block;
+    }
+
+}
+@media screen and (max-width: 470px) {
+    .navbarLi:first-child {
+        margin-left: 0;
+    }
+    .factoryButton, .connectText {
+        display: none;
+    }
+    .menuIcon {
+        display: block;
+    }
+    .dropdownIcon {
+        margin-left: 5px;
+    }
+
+}
+@media screen and (max-width: 300px) {
+    .active {
+        display: none;
+    }
+    .navbarLi:last-child {
+        margin-right: 0px;
+    }
+}
+.uninstalled {
+    cursor:default;
+}
+.walletLogo {
+    vertical-align: middle;
+    border-radius: 5px;
+    margin-right: 5px;
 }

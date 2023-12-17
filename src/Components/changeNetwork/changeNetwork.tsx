@@ -8,7 +8,7 @@ export const ChangeNetwork = () => {
     useSwitchNetwork();
 
     return (
-        <div>
+        <>
             <Overlay onClick={undefined} />
             <div className={styles.changeNetwork}>
                 <p className={styles.changeNetworkHeader}>Unsupported Network!</p>
@@ -16,6 +16,6 @@ export const ChangeNetwork = () => {
                 <p className={styles.switchNetwork} onClick={() => switchNetwork?.(250)}>Switch to Fantom</p>
                 <p>{error && error.message}</p>
             </div>
-        </div>
+        </>
     )
 }

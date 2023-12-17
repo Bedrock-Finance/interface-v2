@@ -25,6 +25,8 @@ import { useDebounce } from 'usehooks-ts'
 import { ChangeNetwork } from "@/Components/changeNetwork/changeNetwork";
 import { write } from "fs";
 
+import { useIsMounted } from "usehooks-ts";
+
 export default function Factory(): JSX.Element {
     const [name, setName] = useState<string>("");
     const [symbol, setSymbol] = useState<string>("");
@@ -35,13 +37,9 @@ export default function Factory(): JSX.Element {
     const dSupply = useDebounce(supply, 500);
     const dDecimals = useDebounce(decimals, 500);
 
-    const [isClient, setIsClient] = useState<boolean>(false)
-
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
-    useEffect(() => {
-        setIsClient(true)
-    }, []);
+    const isMounted = useIsMounted();
 
     const { isConnected } = useAccount();
 
@@ -113,7 +111,7 @@ export default function Factory(): JSX.Element {
 
     return (
         <div>
-            {chain && chain.id !== 250 && <ChangeNetwork />}
+            {isMounted() && chain && chain.id !== 250 && <ChangeNetwork />}
             <div className={styles.tokenDeployer}>
                 <p className={styles.title}>BedrockMint v1</p>
                 <p className={styles.inputDescription}>by Bedrock Finance</p>
@@ -178,7 +176,7 @@ export default function Factory(): JSX.Element {
                     className={`${styles.deployButton} ${isFormFilled() && Number(decimals) >= 0 && Number(decimals) <= 18 && Number(supply) >= 0 && !(isLoadingTransaction || isLoadingWrite) ? "" : styles.disabled}`}
                     disabled={isConnected && isFormFilled() && Number(decimals) >= 0 && Number(decimals) <= 18 && Number(supply) >= 0 && !(isLoadingTransaction || isLoadingWrite) ? false : true}
                 >
-                    {isClient ? isConnected ? (isLoadingTransaction || isLoadingWrite) ? 'Minting...' : "Deploy (" + deployFee + " FTM)" : "Not Connected" : "Loading..."}
+                    {isMounted() ? isConnected ? (isLoadingTransaction || isLoadingWrite) ? 'Minting...' : "Deploy (" + deployFee + " FTM)" : "Not Connected" : "Loading..."}
                 </button>
                 <p className={styles.inputDescription}>(*) is a required field</p>
             </div>

@@ -13,6 +13,8 @@ import { useAccount } from "wagmi";
 
 import { chainDetails } from "@/Constants/config";
 
+import Image from "next/image";
+
 import {
     usePrepareContractWrite,
     useContractWrite,
@@ -27,6 +29,8 @@ import { write } from "fs";
 
 import { useIsMounted } from "usehooks-ts";
 
+import { RpcError } from "viem";
+
 export default function Factory(): JSX.Element {
     const [name, setName] = useState<string>("");
     const [symbol, setSymbol] = useState<string>("");
@@ -36,6 +40,10 @@ export default function Factory(): JSX.Element {
     const dSymbol = useDebounce(symbol, 500);
     const dSupply = useDebounce(supply, 500);
     const dDecimals = useDebounce(decimals, 500);
+
+    const [displayedError, setDisplayedError] = useState(false);
+
+    const [errorMenu, setErrorMenu] = useState(false);
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -89,17 +97,32 @@ export default function Factory(): JSX.Element {
 
     const chainId: string | number | undefined = chain && chain.id;
 
-    const { config } = usePrepareContractWrite({
+    const { config,
+        error: prepareError,
+        isError: isPrepareError,
+    }: {
+        config: any;
+        error: any;
+        isError: any;
+    } = usePrepareContractWrite({
         address: (chainId ? chainDetails[chainId] ? chainDetails[chainId] as `0x${string}` : undefined : undefined),
         abi: tokenDeployerABI,
         functionName: 'deployToken',
         args: [dSymbol, dName, dDecimals ? Number(dDecimals) : 18, BigInt(dSupply)],
-        value: BigInt((deployFee * (10 ** 18)))
+        value: BigInt((deployFee * (10 ** 18))),
     })
 
-    const { data, isLoading: isLoadingWrite, isSuccess: isSuccessWrite, write: _write } = useContractWrite(config);
+    const { data, isLoading: isLoadingWrite, isSuccess: isSuccessWrite, write: _write, error, isError }:
+        {
+            data: any
+            isLoading: any
+            isSuccess: any
+            write: any
+            error: any
+            isError: any
+        } = useContractWrite(config);
 
-    const { isLoading: isLoadingTransaction, isSuccess: isSuccessTransaction } = useWaitForTransaction({
+    const { isLoading: isLoadingTransaction, isSuccess: isSuccessTransaction, error: error_ } = useWaitForTransaction({
         hash: data?.hash,
     })
 
@@ -108,6 +131,19 @@ export default function Factory(): JSX.Element {
         await (_write && _write())
         setIsLoading(false);
     }
+
+    const toggleErrorMenuOpen = () => {
+        setErrorMenu(!errorMenu);
+    }
+
+    useEffect(() => {
+        // Add logic here to update displayedError after a short delay to prevent flickering
+        const delay = setTimeout(() => {
+          setDisplayedError(isPrepareError);
+        }, 500); // Adjust the delay time as needed
+    
+        return () => clearTimeout(delay);
+      }, [isPrepareError]);
 
     return (
         <div>
@@ -171,6 +207,7 @@ export default function Factory(): JSX.Element {
                     )}
                     <p className={styles.inputDescription}>Example: 8</p>
                 </div>
+
                 <button
                     onClick={() => write?.()}
                     className={`${styles.deployButton} ${isFormFilled() && Number(decimals) >= 0 && Number(decimals) <= 18 && Number(supply) >= 0 && !(isLoadingTransaction || isLoadingWrite) ? "" : styles.disabled}`}
@@ -179,6 +216,22 @@ export default function Factory(): JSX.Element {
                     {isMounted() ? isConnected ? (isLoadingTransaction || isLoadingWrite) ? 'Minting...' : "Deploy (" + deployFee + " FTM)" : "Not Connected" : "Loading..."}
                 </button>
                 <p className={styles.inputDescription}>(*) is a required field</p>
+                <div className={styles.errorSection}>
+                    {(displayedError) ?
+                        <div onClick={toggleErrorMenuOpen} className={styles.errorCollapsed}>
+                            <p className={styles.errorHeader}>❌ Error</p>
+                            <Image src="/assets/icons/dropdown.svg" alt="dropdown" width={25} height={25} className={styles.errorDropdown} />
+                        </div>
+                        :
+                        <div className={styles.errorCollapsed}>
+                            <p className={styles.errorHeader}>✅ All Clear</p>
+
+                        </div>
+                    }
+                    {errorMenu &&
+                        <p className={styles.errorText}>{prepareError?.message}</p>
+                    }
+                </div>
             </div>
         </div>
 

@@ -73,7 +73,7 @@ export default function MyTokens(): JSX.Element {
     }, []);
 
     return (
-            <div>
+            <div className={styles.myTokens}>
                 <div className={styles.myTokensHeading}>
                     <p className={styles.heading}>My Tokens</p>
                     <p className={styles.subheading}>See all the tokens you have created!</p>

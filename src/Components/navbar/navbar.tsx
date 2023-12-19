@@ -68,7 +68,6 @@ export const Navbar = () => {
   };
 
   const toggleConnectMenuOpen = () => {
-    console.log(connectMenuOpen);
     setConnectMenuOpen(!connectMenuOpen);
   };
 

@@ -71,3 +71,27 @@
     margin: 0;
     color: white;
 }
+.errorText {
+    color: white;
+}
+.errorSection {
+    border: 1px solid gray;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: rgb(62, 62, 62);
+}
+.errorHeader {
+    color: white;
+    font-size: 25px;
+    margin: 0;
+    display: inline-block;
+}
+.errorCollapsed {
+    width: 100%;
+}
+.errorDropdown {
+    display: inline-block;
+    vertical-align: middle;
+    float: right;
+    vertical-align: middle;
+}

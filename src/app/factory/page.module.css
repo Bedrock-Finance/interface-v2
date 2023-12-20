@@ -73,6 +73,7 @@
 }
 .errorText {
     color: white;
+    overflow-wrap: break-word;
 }
 .errorSection {
     border: 1px solid gray;

@@ -29,7 +29,7 @@ import { write } from "fs";
 
 import { useIsMounted } from "usehooks-ts";
 
-import { RpcError } from "viem";
+import { capitalizeFirstLetter } from "../Utils/capitilizeFirstLetter";
 
 export default function Factory(): JSX.Element {
     const [name, setName] = useState<string>("");
@@ -100,16 +100,19 @@ export default function Factory(): JSX.Element {
     const { config,
         error: prepareError,
         isError: isPrepareError,
+        isLoading: isLoadingPrepare
     }: {
         config: any;
         error: any;
         isError: any;
+        isLoading: any;
     } = usePrepareContractWrite({
         address: (chainId ? chainDetails[chainId] ? chainDetails[chainId] as `0x${string}` : undefined : undefined),
         abi: tokenDeployerABI,
         functionName: 'deployToken',
         args: [dSymbol, dName, dDecimals ? Number(dDecimals) : 18, BigInt(dSupply)],
         value: BigInt((deployFee * (10 ** 18))),
+        cacheTime: 0
     })
 
     const { data, isLoading: isLoadingWrite, isSuccess: isSuccessWrite, write: _write, error, isError }:
@@ -137,13 +140,14 @@ export default function Factory(): JSX.Element {
     }
 
     useEffect(() => {
-        // Add logic here to update displayedError after a short delay to prevent flickering
+
         const delay = setTimeout(() => {
-          setDisplayedError(isPrepareError);
-        }, 500); // Adjust the delay time as needed
-    
+            setDisplayedError(isPrepareError);
+            console.log(isPrepareError);
+        }, 500);
+
         return () => clearTimeout(delay);
-      }, [isPrepareError]);
+    }, [isPrepareError]);
 
     return (
         <div>
@@ -210,28 +214,37 @@ export default function Factory(): JSX.Element {
 
                 <button
                     onClick={() => write?.()}
-                    className={`${styles.deployButton} ${isFormFilled() && Number(decimals) >= 0 && Number(decimals) <= 18 && Number(supply) >= 0 && !(isLoadingTransaction || isLoadingWrite) ? "" : styles.disabled}`}
-                    disabled={isConnected && isFormFilled() && Number(decimals) >= 0 && Number(decimals) <= 18 && Number(supply) >= 0 && !(isLoadingTransaction || isLoadingWrite) ? false : true}
+                    className={`${styles.deployButton} ${!displayedError && isLoadingPrepare && isConnected && isFormFilled() && Number(decimals) >= 0 && Number(decimals) <= 18 && Number(supply) >= 0 && !(isLoadingTransaction || isLoadingWrite) ? "" : styles.disabled}`}
+                    disabled={isPrepareError && isConnected && isFormFilled() && Number(decimals) >= 0 && Number(decimals) <= 18 && Number(supply) >= 0 && !(isLoadingTransaction || isLoadingWrite) ? false : true}
                 >
                     {isMounted() ? isConnected ? (isLoadingTransaction || isLoadingWrite) ? 'Minting...' : "Deploy (" + deployFee + " FTM)" : "Not Connected" : "Loading..."}
                 </button>
                 <p className={styles.inputDescription}>(*) is a required field</p>
-                <div className={styles.errorSection}>
-                    {(displayedError) ?
-                        <div onClick={toggleErrorMenuOpen} className={styles.errorCollapsed}>
-                            <p className={styles.errorHeader}>❌ Error</p>
-                            <Image src="/assets/icons/dropdown.svg" alt="dropdown" width={25} height={25} className={styles.errorDropdown} />
-                        </div>
-                        :
-                        <div className={styles.errorCollapsed}>
-                            <p className={styles.errorHeader}>✅ All Clear</p>
-
-                        </div>
-                    }
-                    {errorMenu &&
-                        <p className={styles.errorText}>{prepareError?.message}</p>
-                    }
-                </div>
+                {isMounted() && isConnected &&
+                    <div className={styles.errorSection}>
+                        {(displayedError || isLoadingPrepare) ?
+                            <div onClick={toggleErrorMenuOpen} className={styles.errorCollapsed}>
+                                <p className={styles.errorHeader}>❌ Contract Execution Error</p>
+                                <Image src="/assets/icons/dropdown.svg" alt="dropdown" width={25} height={25} className={styles.errorDropdown} />
+                            </div>
+                            :
+                            <div className={styles.errorCollapsed}>
+                                { !isLoadingPrepare ?
+                                <p className={styles.errorHeader}>✅ All Clear</p> 
+                                :
+                                <p className={styles.errorHeader}>⏳ Loading</p>
+                                }
+                            </div>
+                        }
+                        {(errorMenu && displayedError) && (
+                            !isLoadingPrepare ?
+                            <p className={styles.errorText}>{prepareError?.details ? capitalizeFirstLetter(prepareError?.details + ".") : (prepareError?.message.includes("v1: Invalid Decimals") ? "v1: Invalid Decimals" : capitalizeFirstLetter((prepareError?.message) + "."))}</p> 
+                            :
+                             <p className={styles.errorText}>Loading...</p>
+                        )
+                        }
+                    </div>
+                }
             </div>
         </div>
 

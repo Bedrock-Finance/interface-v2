@@ -1,7 +1,7 @@
 "use client";
 
-import { fantom } from 'wagmi/chains';
-import { WagmiConfig, createConfig, configureChains } from 'wagmi'
+import { fantom, polygon } from 'wagmi/chains';
+import { createConfig, configureChains } from 'wagmi'
 
 import { publicProvider } from 'wagmi/providers/public'
 
@@ -14,7 +14,7 @@ import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
 // Configure chains & providers with the Alchemy provider.
 // Two popular providers are Alchemy (alchemy.com) and Infura (infura.io)
 export const { chains, publicClient, webSocketPublicClient } = configureChains(
-  [fantom],
+  [fantom, polygon],
   [publicProvider()],
 )
 
@@ -41,7 +41,7 @@ export const config = createConfig({
           icons: ['https://bedrockfi.org/assets/bedrock.png'],
         },
       },
-      
+
     }),
     new InjectedConnector({
       chains,
@@ -56,6 +56,8 @@ export const config = createConfig({
 })
 
 export const contractAddress = "0x5746A1ec97d91c594e6042a7A42c8285C4c3A0EE";
-export const chainDetails: { [key: string]: string } = { "250": contractAddress }
+export const chainDetails: { [key: string]: string } = {
+  "250" : "0x5746A1ec97d91c594e6042a7A42c8285C4c3A0EE",
+  "137" : "0x5746A1ec97d91c594e6042a7A42c8285C4c3A0EE"
+}
 export const RPC = "https://rpc.ftm.tools";
-export const chainID = 250;

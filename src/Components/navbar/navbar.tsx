@@ -9,12 +9,16 @@ import Link from "next/link";
 import {
   useAccount,
   useConnect,
-  useDisconnect
+  useDisconnect,
+  useNetwork,
+  useSwitchNetwork
 } from 'wagmi'
 
 import { useIsMounted } from "usehooks-ts";
 
 import { Overlay } from "../overlay/overlay";
+
+import { chainDetails } from "@/Constants/config";
 
 export function Profile() {
   const isMounted = useIsMounted();
@@ -33,10 +37,10 @@ export function Profile() {
           onClick={() => connect({ connector })}
           className={`${styles.connectionOption} ${(!connector.ready && isMounted()) && styles.uninstalled}`}
         >
-          {String(connector.name) === "MetaMask" && <Image src="/assets/icons/metamask.png" alt="logo" width={30} height={30} className={styles.walletLogo}/>}
-          {String(connector.name) === "Coinbase Wallet" && <Image src="/assets/icons/coinbase.png" alt="logo" width={30} height={30} className={styles.walletLogo}/>}
-          {String(connector.name) === "WalletConnect" && <Image src="/assets/icons/walletConnect.png" alt="logo" width={30} height={30} className={styles.walletLogo}/>}
-          {String(connector.name) === "Injected" && <Image src="/assets/icons/wallet.svg" alt="logo" width={30} height={30} className={styles.walletLogo}/>}
+          {String(connector.name) === "MetaMask" && <Image src="/assets/icons/metamask.png" alt="logo" width={30} height={30} className={styles.walletLogo} />}
+          {String(connector.name) === "Coinbase Wallet" && <Image src="/assets/icons/coinbase.png" alt="logo" width={30} height={30} className={styles.walletLogo} />}
+          {String(connector.name) === "WalletConnect" && <Image src="/assets/icons/walletConnect.png" alt="logo" width={30} height={30} className={styles.walletLogo} />}
+          {String(connector.name) === "Injected" && <Image src="/assets/icons/wallet.svg" alt="logo" width={30} height={30} className={styles.walletLogo} />}
           {connector.name}
           {(!connector.ready && isMounted()) && ' (uninstalled)'}
           {isLoading &&
@@ -54,6 +58,7 @@ export const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const [connectOpen, setConnectOpen] = useState<boolean>(false);
   const [connectMenuOpen, setConnectMenuOpen] = useState<boolean>(false);
+  const [networkMenuOpen, setNetworkMenuOpen] = useState<boolean>(false);
   const [isClient, setIsClient] = useState<boolean>(false);
 
   const { address, isConnected } = useAccount();
@@ -68,14 +73,28 @@ export const Navbar = () => {
   };
 
   const toggleConnectMenuOpen = () => {
+    if (!connectMenuOpen) {
+      setNetworkMenuOpen(false);
+    }
     setConnectMenuOpen(!connectMenuOpen);
   };
 
-  useEffect(() => {
-    setIsClient(true)
-  }, []);
+  const toggleNetworkMenuOpen = () => {
+    if (!networkMenuOpen) {
+      setConnectMenuOpen(false);
+    }
+    setNetworkMenuOpen(!networkMenuOpen);
+  };
 
+  const { chain } = useNetwork();
+  const { chains, error, isLoading, pendingChainId, switchNetwork } =
+    useSwitchNetwork()
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+  console.log(chain);
   return (
+    
     <nav>
       {!isConnected && connectOpen && <Overlay onClick={toggleConnectOpen} />}
       {!isConnected && connectOpen && <Profile />}
@@ -103,6 +122,29 @@ export const Navbar = () => {
           :
           <div className={`${styles.navbarLi} ${styles.connectButton}`} onClick={toggleConnectOpen}>
             <p className={styles.connectButtonText}>Connect</p>
+          </div>
+          :
+          <div className={`${styles.navbarLi} ${styles.connectButton}`}>
+            <p className={styles.connectButtonText}>Loading...</p>
+          </div>
+        }
+        {isClient ? isConnected ?
+          <>
+            <div className={`${styles.navbarLi} ${styles.connectButton}`} onClick={toggleNetworkMenuOpen}>
+              <div className={styles.walletIcon}>
+                <Image src="assets/icons/wallet.svg" alt="wallet" width={20} height={20} className={styles.walletIconImage}></Image>
+              </div>
+              <p className={`${styles.connectText}`}>{chain ? chainDetails[chain.id] ? chain.name : "Unsupported" : "Error"}</p>
+              <Image src="assets/icons/dropdown.svg" alt="dropdown" width={20} height={20} className={styles.dropdownIcon} />
+            </div>
+            <div className={`${styles.dropdown} ${networkMenuOpen ? styles.connectMenuOpen : styles.connectMenuClosed}`}>
+              <p className={styles.dropdownOption} onClick={() => switchNetwork?.(250)}>Fantom</p>
+              <p className={styles.dropdownOption} onClick={() => switchNetwork?.(137)}>Polygon</p>
+            </div>
+          </>
+          :
+          <div className={`${styles.navbarLi} ${styles.connectButton}`} onClick={toggleConnectOpen}>
+            <p className={styles.connectButtonText}>Fantom</p>
           </div>
           :
           <div className={`${styles.navbarLi} ${styles.connectButton}`}>

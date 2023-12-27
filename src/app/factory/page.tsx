@@ -9,8 +9,6 @@ import { tokenDeployerABI } from "@/ABIs/tokenDeployer";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { useAccount } from "wagmi";
-
 import { chainDetails } from "@/Constants/config";
 
 import Image from "next/image";
@@ -19,7 +17,9 @@ import {
     usePrepareContractWrite,
     useContractWrite,
     useWaitForTransaction,
-    useNetwork
+    useNetwork,
+    useAccount,
+    useContractRead
 } from 'wagmi'
 
 import { useDebounce } from 'usehooks-ts'
@@ -29,7 +29,7 @@ import { write } from "fs";
 
 import { useIsMounted } from "usehooks-ts";
 
-import { capitalizeFirstLetter } from "../Utils/capitilizeFirstLetter";
+import { capitalizeFirstLetter } from "../../Utils/capitilizeFirstLetter";
 
 export default function Factory(): JSX.Element {
     const [name, setName] = useState<string>("");
@@ -41,8 +41,6 @@ export default function Factory(): JSX.Element {
     const dSupply = useDebounce(supply, 500);
     const dDecimals = useDebounce(decimals, 500);
 
-    const [displayedError, setDisplayedError] = useState(false);
-
     const [errorMenu, setErrorMenu] = useState(false);
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -50,8 +48,6 @@ export default function Factory(): JSX.Element {
     const isMounted = useIsMounted();
 
     const { isConnected } = useAccount();
-
-    const [deployFee, setDeployFee] = useState<number>(5);
 
     const setTokenName = (e: ChangeEvent<HTMLInputElement>) => {
         setName(e.target.value);
@@ -95,7 +91,13 @@ export default function Factory(): JSX.Element {
 
     const { chain } = useNetwork();
 
-    const chainId: string | number | undefined = chain && chain.id;
+    const chainId: string | number = chain ? (chain && chain.id) : 250;
+
+    const { data: deployFee } = useContractRead({
+        address: chainDetails[chainId] as `0x${string}`,
+        abi: tokenDeployerABI,
+        functionName: 'creationFee',
+      });
 
     const { config,
         error: prepareError,
@@ -111,7 +113,7 @@ export default function Factory(): JSX.Element {
         abi: tokenDeployerABI,
         functionName: 'deployToken',
         args: [dSymbol, dName, dDecimals ? Number(dDecimals) : 18, BigInt(dSupply)],
-        value: BigInt((deployFee * (10 ** 18))),
+        value: deployFee,
         cacheTime: 0
     })
 
@@ -139,19 +141,9 @@ export default function Factory(): JSX.Element {
         setErrorMenu(!errorMenu);
     }
 
-    useEffect(() => {
-
-        const delay = setTimeout(() => {
-            setDisplayedError(isPrepareError);
-            console.log(isPrepareError);
-        }, 500);
-
-        return () => clearTimeout(delay);
-    }, [isPrepareError]);
-
     return (
         <div>
-            {isMounted() && chain && chain.id !== 250 && <ChangeNetwork />}
+            {isMounted() && (chainId && !chainDetails[chainId]) && <ChangeNetwork />}
             <div className={styles.tokenDeployer}>
                 <p className={styles.title}>BedrockMint v1</p>
                 <p className={styles.inputDescription}>by Bedrock Finance</p>
@@ -184,7 +176,7 @@ export default function Factory(): JSX.Element {
                 <div className={styles.inputGroup}>
                     <p className={styles.inputTitle}>Token Supply*</p>
                     <input
-                        onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+                        onKeyDown={(evt) => ["e", "E", "+", "-", "."].includes(evt.key) && evt.preventDefault()}
                         onChange={setTokenSupply}
                         className={`${styles.tokenInput} ${determineSupplyInputClass(supply)}`}
                         placeholder="Your Token Supply"
@@ -211,18 +203,17 @@ export default function Factory(): JSX.Element {
                     )}
                     <p className={styles.inputDescription}>Example: 8</p>
                 </div>
-
                 <button
                     onClick={() => write?.()}
-                    className={`${styles.deployButton} ${!displayedError && isLoadingPrepare && isConnected && isFormFilled() && Number(decimals) >= 0 && Number(decimals) <= 18 && Number(supply) >= 0 && !(isLoadingTransaction || isLoadingWrite) ? "" : styles.disabled}`}
-                    disabled={isPrepareError && isConnected && isFormFilled() && Number(decimals) >= 0 && Number(decimals) <= 18 && Number(supply) >= 0 && !(isLoadingTransaction || isLoadingWrite) ? false : true}
+                    className={`${styles.deployButton} ${!isPrepareError && isConnected && isFormFilled() && Number(decimals) >= 0 && Number(decimals) <= 18 && Number(supply) >= 0 && !(isLoadingTransaction || isLoadingWrite) ? "" : styles.disabled}`}
+                    disabled={!isPrepareError && isConnected && isFormFilled() && Number(decimals) >= 0 && Number(decimals) <= 18 && Number(supply) >= 0 && !(isLoadingTransaction || isLoadingWrite) ? false : true}
                 >
-                    {isMounted() ? isConnected ? (isLoadingTransaction || isLoadingWrite) ? 'Minting...' : "Deploy (" + deployFee + " FTM)" : "Not Connected" : "Loading..."}
+                    {isMounted() ? isConnected ? (isLoadingTransaction || isLoadingWrite) ? 'Minting...' : ("Deploy (" + String(deployFee && Number(deployFee) * 10**(-18)) + " " + String(chain ? (chain && chain.nativeCurrency.symbol) : "FTMm")) + ")" : "Not Connected" : "Loading..."}
                 </button>
                 <p className={styles.inputDescription}>(*) is a required field</p>
                 {isMounted() && isConnected &&
                     <div className={styles.errorSection}>
-                        {(displayedError || isLoadingPrepare) ?
+                        {(isPrepareError) ?
                             <div onClick={toggleErrorMenuOpen} className={styles.errorCollapsed}>
                                 <p className={styles.errorHeader}>❌ Contract Execution Error</p>
                                 <Image src="/assets/icons/dropdown.svg" alt="dropdown" width={25} height={25} className={styles.errorDropdown} />
@@ -236,7 +227,7 @@ export default function Factory(): JSX.Element {
                                 }
                             </div>
                         }
-                        {(errorMenu && displayedError) && (
+                        {(errorMenu && isPrepareError) && (
                             !isLoadingPrepare ?
                             <p className={styles.errorText}>{prepareError?.details ? capitalizeFirstLetter(prepareError?.details + ".") : (prepareError?.message.includes("v1: Invalid Decimals") ? "v1: Invalid Decimals" : capitalizeFirstLetter((prepareError?.message) + "."))}</p> 
                             :

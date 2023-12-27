@@ -22,7 +22,7 @@ export default function Home() {
                         <p>Made By Bedrock</p>
                         <p className={styles.appTitle}>ERC-20 Token Factory v1</p>
                         <p className={styles.appDescription}>Build your own pre-audited cryptocurrency within seconds. Bedrock uses complex algorithms to ensure that your token is safe, gas efficient, and has no differences compared to non-automated contracts.</p>
-                        <p>Chains supported: Fantom (FTM)</p>
+                        <p>Chains supported: Fantom (FTM), Polygon (MATIC)</p>
                         <a href="/factory" className={styles.appButton}>Launch</a>
                     </div>
                 </div>
@@ -31,7 +31,7 @@ export default function Home() {
                         <p className={styles.roadmapsheading}>Advancing</p>
                         <p className={styles.roadmapheading}>Project Roadmap</p>
                         <p className={styles.roadmapdescription}>
-                            See our previous feats and upcoming projects in advance to know what&apos;s going on behind the scenes.
+                            See our previous feats and upcoming projects in advance to know what's going on behind the scenes.
                         </p>
                         <img alt="bitcoin graphic" className={styles.astronaut} src="assets/btc3d.png" />
                     </div>
@@ -46,7 +46,7 @@ export default function Home() {
                             <div className={styles.timelineContent}>
                                 <h2>Q1 2024</h2>
                                 <p>✅ Add more wallet connection options</p>
-                                <p>❌Launch on two more chains</p>
+                                <p>⏳Launch on two more chains</p>
                                 <p>❌Create Discord, YouTube and Twitter</p>
                             </div>
                         </div>

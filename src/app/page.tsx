@@ -1,5 +1,7 @@
 import styles from "./page.module.css";
 
+import Image from "next/image";
+
 export const metadata = {
     title: 'Home | Bedrock Finance | Create No-Code Cryptocurrencies',
     description: 'With Bedrock Finance you can tokenize assets in seconds. Tokens are gas efficient, safe and have undergone extensive testing.',
@@ -15,7 +17,7 @@ export default function Home() {
                     <a href="/factory" className={styles.create}>Create an ERC-20 Token</a>
                 </div>
                 <div className={`${styles.half} ${styles.image}`}>
-                    <img src="assets/btcworld3d.png" className={styles.bitcoin} alt="bitcoin graphic" />
+                    <Image src="/assets/btcworld3d.png" className={styles.bitcoin} alt="bitcoin graphic" width={250} height={250} />
                 </div>
                 <div className={styles.app}>
                     <div className={styles.app1}>
@@ -31,9 +33,11 @@ export default function Home() {
                         <p className={styles.roadmapsheading}>Advancing</p>
                         <p className={styles.roadmapheading}>Project Roadmap</p>
                         <p className={styles.roadmapdescription}>
-                            See our previous feats and upcoming projects in advance to know what's going on behind the scenes.
+                            See our previous feats and upcoming projects in advance to know what&apos;s going on behind the scenes.
                         </p>
-                        <img alt="bitcoin graphic" className={styles.astronaut} src="assets/btc3d.png" />
+                        <div style={{ position: "relative", width: "90%", height: "100%"}} >
+                            <Image alt="bitcoin graphic" className={styles.astronaut} src="/assets/btc3d.png" layout="fill" objectFit="contain" />
+                        </div>
                     </div>
                     <div className={styles.timeline}>
                         <div className={styles.timelineItem}>

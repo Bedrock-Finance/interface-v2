@@ -36,7 +36,7 @@ export default function Home() {
                             See our previous feats and upcoming projects in advance to know what&apos;s going on behind the scenes.
                         </p>
                         <div style={{ position: "relative", width: "90%", height: "100%"}} >
-                            <Image alt="bitcoin graphic" className={styles.astronaut} src="/assets/btc3d.png" layout="fill" objectFit="contain" />
+                            <Image alt="bitcoin graphic" style={{ objectFit: "contain" }} src="/assets/btc3d.png" fill={true} />
                         </div>
                     </div>
                     <div className={styles.timeline}>

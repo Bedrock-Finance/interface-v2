@@ -1,10 +1,7 @@
 "use client";
 
 import { tokenDeployerABI } from '@/ABIs/tokenDeployer';
-import { RPC } from '../../Constants/config';
-import { contractAddress } from "../../Constants/config";
 import { useState } from "react";
-import Web3 from "web3";
 import styles from "./page.module.css";
 import { erc20ABI, useContractReads, useNetwork, useContractRead, useAccount } from 'wagmi';
 

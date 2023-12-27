@@ -10,15 +10,11 @@ import { InjectedConnector } from 'wagmi/connectors/injected'
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask'
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
 
-
-// Configure chains & providers with the Alchemy provider.
-// Two popular providers are Alchemy (alchemy.com) and Infura (infura.io)
 export const { chains, publicClient, webSocketPublicClient } = configureChains(
   [fantom, polygon],
   [publicProvider()],
 )
 
-// Set up wagmi config
 export const config = createConfig({
   autoConnect: true,
   connectors: [
@@ -55,9 +51,7 @@ export const config = createConfig({
   webSocketPublicClient,
 })
 
-export const contractAddress = "0x5746A1ec97d91c594e6042a7A42c8285C4c3A0EE";
 export const chainDetails: { [key: string]: string } = {
   "250" : "0x5746A1ec97d91c594e6042a7A42c8285C4c3A0EE",
   "137" : "0x5746A1ec97d91c594e6042a7A42c8285C4c3A0EE"
 }
-export const RPC = "https://rpc.ftm.tools";

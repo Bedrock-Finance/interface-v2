@@ -16,7 +16,7 @@
     margin-top: 10px;
 }
 .switchNetwork {
-    background-color: #ffbd43;
+    background-color: var(--accent);
     border-radius: 25px;
     padding: 10px;
     font-size: 1.2em;

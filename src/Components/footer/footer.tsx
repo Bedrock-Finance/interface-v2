@@ -16,7 +16,7 @@ export const Footer = () => {
                 <Image src="/assets/icons/github.svg" alt="github" height={25} width={25} className={styles.footerIcon} />
                 <p className={styles.footerElementText}>Github</p>
             </Link>
-            <Link target="_blank" href="https://www.youtube.com/channel/UCUETd0WFETVCapCy8TWsbaQ" className={styles.footerElement}>
+            <Link target="_blank" href="https://www.youtube.com/@bedrockfi" className={styles.footerElement}>
                 <Image src="/assets/icons/youtube.svg" alt="youtube" height={25} width={25} className={styles.footerIcon} />
                 <p className={styles.footerElementText}>YouTube</p>
             </Link>

@@ -1,7 +1,7 @@
 .tokenDeployer {
     width: 400px;
     padding: 20px;
-    background-color: #313131;
+    background-color: #e5e5e5;
     border-radius: 10px;
     margin: calc(37px + 1.4em + 30px) auto;
 }
@@ -13,13 +13,13 @@
 .inputTitle {
     font-size: 1.2em;
     margin-bottom: 5px;
-    color: #f5f5f5;
+    color: rgb(50, 50, 50);
 }
 
 .inputDescription {
     margin-top: 5px;
     font-size: 0.8em;
-    color: #aaa;
+    color: #818181;
 }
 
 .tokenInput {
@@ -29,15 +29,15 @@
     outline: none;
     width: 380px;
     transition: border-color 0.5s ease-in-out;
-    background-color: #444;
-    color: #f5f5f5;
+    background-color: #cdcdcd;
+    color: rgb(50, 50, 50);
     border: none; 
 }
 
 .deployButton {
-    color: white;
+    color: rgb(50, 50, 50);
     border-radius: 25px;
-    background-color: #ffbd43;
+    background-color: var(--accent);
     border: none;
     padding: 12px;
     font-size: 1em;
@@ -69,20 +69,20 @@
 .title {
     font-size: 1.5em;
     margin: 0;
-    color: white;
+    color: rgb(50, 50, 50);
 }
 .errorText {
-    color: white;
+    color: rgb(50, 50, 50);
     overflow-wrap: break-word;
 }
 .errorSection {
     border: 1px solid gray;
     border-radius: 10px;
     padding: 20px;
-    background-color: rgb(62, 62, 62);
+    background-color: rgb(215, 215, 215);
 }
 .errorHeader {
-    color: white;
+    color: rgb(14, 14, 14);
     font-size: 25px;
     margin: 0;
     display: inline-block;

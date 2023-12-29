@@ -1,41 +1,35 @@
 .token {
-    border: 1px solid #333; /* Border color */
+    border: 1px solid #c9c9c9; /* Border color */
     border-radius: 8px;
     padding: 15px;
     margin-bottom: 15px;
-    margin-left: 50px;
-    margin-right: 50px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease-in-out;
-    background-color: #313131; /* Token background color */
+    margin-left: 100px;
+    margin-right: 100px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+    background-color: #efefef; /* Token background color */
     overflow-wrap: break-word;
-    color: white;
+    color: rgb(52, 52, 52);
   }
 
   
   .token:hover {
     transform: translateY(-3px);
+    box-shadow: 0 6px 9px rgba(0, 0, 0, 0.1);
   }
   
   .tokenName {
     font-weight: bold;
     font-size: 1.2em;
     margin-bottom: 5px;
-    color: #fff; /* Token name color */
   }
   
   .info {
     margin-bottom: 8px;
-    color: #ccc; /* Info text color */
-  }
-  
-  .tokenName:contains('(BTC)') {
-    color: #f7931a; 
   }
 .myTokensHeading {
     padding: 100px 0 50px 100px;
     margin-bottom: 0px;
-    color: white;
 }
 .heading {
     font-size: 3em;
@@ -47,7 +41,7 @@
 }
 .myTokensError {
   margin-left: 100px;
-  color: white;
+  color: rgba(50,50,50);
 }
 .myTokens {
   min-height: 100vh;

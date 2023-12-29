@@ -6,7 +6,7 @@ import styles from "./page.module.css";
 import { erc20ABI, useContractReads, useNetwork, useContractRead, useAccount } from 'wagmi';
 
 import { useIsMounted } from "usehooks-ts";
-
+import { ChangeNetwork } from '@/Components/changeNetwork/changeNetwork';
 import { chainDetails } from '../../Constants/config';
 interface Token {
     contractAddress: string;
@@ -17,13 +17,9 @@ interface Token {
 }
 
 export default function MyTokens(): JSX.Element {
-    const [tokenData, setTokenData] = useState<Token[]>([]);
-    const [loading, setLoading] = useState<boolean>(true);
-
     const isMounted = useIsMounted();
 
     const { address } = useAccount()
-
     const { chain } = useNetwork();
 
     const chainId: string | number = chain ? (chain && chain.id) : 250;
@@ -85,12 +81,12 @@ export default function MyTokens(): JSX.Element {
         }
         return namedData;
     }
-    console.log(tempTokenData)
 
 
  
     return (
         <div className={styles.myTokens}>
+            {isMounted() && (chainId && !chainDetails[chainId]) && <ChangeNetwork />}
             <div className={styles.myTokensHeading}>
                 <p className={styles.heading}>My Tokens</p>
                 <p className={styles.subheading}>See all the tokens you have created!</p>

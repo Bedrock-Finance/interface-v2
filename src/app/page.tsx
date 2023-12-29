@@ -10,15 +10,19 @@ export const metadata = {
 export default function Home() {
     return (
         <>
-            <div className={styles.container}>
-                <div className={styles.half}>
-                    <p className={styles.homeTitle}>Bedrock Finance</p>
-                    <p className={styles.homeSubtitle}>A strong foundation for your web3 journey</p>
-                    <a href="/factory" className={styles.create}>Create an ERC-20 Token</a>
+                <div className={styles.topSection}>
+                    <div className={styles.homeTitleContainer}>
+                    <p className={styles.homeTitle}>The </p>
+                    <p className={`${styles.homeTitle} ${styles.homeTitleCenter}`}>Cheapest </p>
+                    <p className={styles.homeTitle}>Launchpad</p>
+                    </div>
+                    <p className={styles.homeSubtitle}>Launch your token on the easiest to use multichain launchpad</p>
+                    <a href="/factory" className={styles.create}>Create A Token</a>
                 </div>
-                <div className={`${styles.half} ${styles.image}`}>
-                    <Image src="/assets/btcworld3d.png" className={styles.bitcoin} alt="bitcoin graphic" width={250} height={250} />
+                <div className={`${styles.topSection} ${styles.polygonLogo}`}>
+                    <Image src="/assets/polygon-badge.png" alt="polygon" width={300} height={300} className={styles.polygonImage}/>
                 </div>
+                <p className={styles.appHeader}>Apps</p>
                 <div className={styles.app}>
                     <div className={styles.app1}>
                         <p>Made By Bedrock</p>
@@ -29,16 +33,8 @@ export default function Home() {
                     </div>
                 </div>
                 <div className={styles.roadmap}>
-                    <div className={styles.roadmaptext}>
-                        <p className={styles.roadmapsheading}>Advancing</p>
-                        <p className={styles.roadmapheading}>Project Roadmap</p>
-                        <p className={styles.roadmapdescription}>
-                            See our previous feats and upcoming projects in advance to know what&apos;s going on behind the scenes.
-                        </p>
-                        <div style={{ position: "relative", width: "90%", height: "100%"}} >
-                            <Image alt="bitcoin graphic" style={{ objectFit: "contain" }} src="/assets/btc3d.png" fill={true} />
-                        </div>
-                    </div>
+                    <p className={styles.roadmapHeading}>Roadmap</p>
+                    <p>See what we&apos;ve accomplished and what's in store for Bedrock Finance.</p>
                     <div className={styles.timeline}>
                         <div className={styles.timelineItem}>
                             <div className={styles.timelineContent}>
@@ -50,35 +46,34 @@ export default function Home() {
                             <div className={styles.timelineContent}>
                                 <h2>Q1 2024</h2>
                                 <p>✅ Add more wallet connection options</p>
-                                <p>⏳Launch on two more chains</p>
-                                <p>❌Create Discord, YouTube and Twitter</p>
+                                <p>⏳ Launch on two more chains</p>
+                                <p>✅ Create Discord, YouTube and Twitter</p>
                             </div>
                         </div>
                         <div className={styles.timelineItem}>
                             <div className={styles.timelineContent}>
                                 <h2>Q2 2024</h2>
-                                <p>❌Develop and launch BedrockMint v2 on three chains</p>
-                                <p>✅Complete major UI/UX updates</p>
+                                <p>❌ Develop and launch BedrockMint v2 on three chains</p>
+                                <p>✅ Complete major UI/UX updates</p>
                             </div>
                         </div>
                         <div className={styles.timelineItem}>
                             <div className={styles.timelineContent}>
                                 <h2>S2 2024</h2>
-                                <p>❌Launch BedrockMint v2 on two more chains</p>
-                                <p>❌Build blog and newsletter</p>
+                                <p>❌ Launch BedrockMint v2 on two more chains</p>
+                                <p>❌ Build blog and newsletter</p>
                             </div>
                         </div>
                         <div className={styles.timelineItem}>
                             <div className={styles.timelineContent}>
                                 <h2>2025</h2>
-                                <p>❌Launch Bedrock Finance $BDRK</p>
-                                <p>❌Build crypto blog</p>
-                                <p>❌Launch a second Dapp along with BedrockMint</p>
+                                <p>❌ Launch Bedrock Finance $BDRK</p>
+                                <p>❌ Build crypto blog</p>
+                                <p>❌ Launch a second Dapp along with BedrockMint</p>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
         </>
     )
 }

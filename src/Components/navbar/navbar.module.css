@@ -1,22 +1,20 @@
 .navbar {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
+    padding: 0 15px;
     position: fixed;
+    display: block;
     top: 0;
-    width: 100%;
+    width: calc(100% - 30px);
     background-color: #f5f5f5;
     z-index: 11;
-    background: rgba(56, 56, 56, 0.83);
-box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-color: rgb(201, 201, 201);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    color: rgb(102, 102, 102);
+
 }
 
 .navbarLi {
     float: right;
-    font-size: 1.4em;
-    margin: 15px 15px;
+    font-size: 18px;
+    margin: 10px 5px;
 }
 
 .navLogo {
@@ -27,6 +25,7 @@ color: rgb(201, 201, 201);
 
 .active {
     display: inline-block;
+    font-weight: bold;
 }
 
 
@@ -48,7 +47,6 @@ color: rgb(201, 201, 201);
     overflow: hidden;
     padding-top: calc(40px + 1.9em);
     transition: transform 0.6s ease-in-out;
-    /* Adding a transition */
     top: 0;
 }
 
@@ -74,7 +72,7 @@ color: rgb(201, 201, 201);
     border-radius: 10px;
     max-width: 400px;
     width: 100%;
-    z-index: 13;    
+    z-index: 13;
     color: white;
 }
 
@@ -100,39 +98,63 @@ color: rgb(201, 201, 201);
 }
 
 .connectButton {
-    background-color: #ffbd43;
+    background-color: var(--accent);
     border: none;
     color: white;
     border-radius: 25px;
     width: fit-content;
     cursor: pointer;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 2px 0px;
 }
+
+.connectButtonWhite {
+    background-color: rgb(237, 237, 237);
+    border: none;
+    color: rgb(75, 75, 75);
+    border-radius: 25px;
+    width: fit-content;
+    cursor: pointer;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 2px 0px;
+}
+
 .connectionDesc {
     padding: 0 10px;
     color: white;
     margin-top: 10px;
 }
+
 .connectText {
     display: inline;
     margin: none;
     padding: 0 5px;
+    margin: 0;
+    font-weight: bold;
 }
 
 .dropdownIcon {
     vertical-align: middle;
     margin-right: 5px;
+    filter: invert(15%) sepia(0%) saturate(1%) hue-rotate(40deg) brightness(99%) contrast(90%);
 }
 
+.connectButtonContainer {
+    float: right;
+    display: block;
+}
+
+
 .dropdown {
-    position: fixed;
-    right: 0;
-    top: calc(44px + 1.4em);
+    display: block;
+    position: absolute;
+    top: 55px;
     background-color: #f5f5f5;
     border-radius: 10px;
     border: 2px solid rgb(225, 225, 225);
     max-width: 200px;
     width: 100%;
     color: black;
+    float: left;
+    overflow: hidden;
 }
 
 .dropdownOption {
@@ -148,20 +170,22 @@ color: rgb(201, 201, 201);
 
 .walletIcon {
     display: inline-block;
-    border: white 3px solid;
+    border: rgba(17, 17, 26, 0.1) 3px solid;
     border-radius: 25px;
     width: calc(1.4em);
     height: calc(1.4em);
-    background-color: #f1a517;
+    background-color: rgb(234, 234, 234);
 }
 
 .walletIconImage {
     margin: auto auto;
-    margin-left: calc((1.4em) / 2 - 10px)
+    margin-left: calc((1.4em) / 2 - 7.5px);
+    filter: invert(15%) sepia(0%) saturate(1%) hue-rotate(40deg) brightness(99%) contrast(90%);
 }
 
 .connectButtonText {
     margin: 5px;
+    font-weight: bold;
 }
 
 .connectMenuOpen {
@@ -175,46 +199,51 @@ color: rgb(201, 201, 201);
 .menuIcon {
     display: none;
 }
+
 @media screen and (min-width: 570px) {
     .menu {
         display: none;
     }
 }
+
 @media screen and (max-width: 570px) and (min-width: 470px) {
     .factoryButton {
         display: none;
     }
+
     .menuIcon {
         display: block;
     }
 
 }
+
 @media screen and (max-width: 470px) {
-    .navbarLi:first-child {
-        margin-left: 0;
-    }
-    .factoryButton, .connectText {
+
+    .factoryButton,
+    .connectText {
         display: none;
     }
+
     .menuIcon {
         display: block;
     }
+
     .dropdownIcon {
         margin-left: 5px;
     }
 
 }
+
 @media screen and (max-width: 300px) {
     .active {
         display: none;
     }
-    .navbarLi:last-child {
-        margin-right: 0px;
-    }
 }
+
 .uninstalled {
-    cursor:default;
+    cursor: default;
 }
+
 .walletLogo {
     vertical-align: middle;
     border-radius: 5px;

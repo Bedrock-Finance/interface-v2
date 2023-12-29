@@ -25,7 +25,6 @@ export function Profile() {
   const { connect, connectors, error, isLoading, pendingConnector } =
     useConnect();
 
-
   return (
     <div className={styles.connectionOptions}>
       <p className={styles.connectionHeading}>Connect Wallet</p>
@@ -60,6 +59,7 @@ export const Navbar = () => {
   const [connectMenuOpen, setConnectMenuOpen] = useState<boolean>(false);
   const [networkMenuOpen, setNetworkMenuOpen] = useState<boolean>(false);
   const [isClient, setIsClient] = useState<boolean>(false);
+  const [tempNetwork, setTempNetwork] = useState<string>("Fantom");
 
   const { address, isConnected } = useAccount();
   const { disconnect } = useDisconnect();
@@ -86,6 +86,13 @@ export const Navbar = () => {
     setNetworkMenuOpen(!networkMenuOpen);
   };
 
+  function dropdownAction(func: () => void): void {
+    func();
+    setConnectMenuOpen(false);
+    setNetworkMenuOpen(false);
+  }
+
+
   const { chain } = useNetwork();
   const { chains, error, isLoading, pendingChainId, switchNetwork } =
     useSwitchNetwork()
@@ -94,7 +101,7 @@ export const Navbar = () => {
   }, []);
   console.log(chain);
   return (
-    
+
     <nav>
       {!isConnected && connectOpen && <Overlay onClick={toggleConnectOpen} />}
       {!isConnected && connectOpen && <Profile />}
@@ -104,21 +111,21 @@ export const Navbar = () => {
       <div className={styles.navbar}>
         <p className={`${styles.navbarLi} ${styles.menuIcon}`} aria-label="Toggle Menu" onClick={toggleMenuOpen}>☰</p>
         {isClient ? isConnected ?
-          <>
-            <div className={`${styles.navbarLi} ${styles.connectButton}`} onClick={toggleConnectMenuOpen}>
+          <div className={styles.connectButtonContainer}>
+            <div className={`${styles.navbarLi} ${styles.connectButtonWhite}`} onClick={toggleConnectMenuOpen}>
               <div className={styles.walletIcon}>
-                <Image src="assets/icons/wallet.svg" alt="wallet" width={20} height={20} className={styles.walletIconImage}></Image>
+                <Image src="assets/icons/wallet.svg" alt="wallet" width={15} height={15} className={styles.walletIconImage}></Image>
               </div>
               <p className={`${styles.connectText}`}>{address ? (address?.slice(0, 6) + "..." + address?.slice(-4)) : "Error"}</p>
               <Image src="assets/icons/dropdown.svg" alt="dropdown" width={20} height={20} className={styles.dropdownIcon} />
             </div>
             <div className={`${styles.dropdown} ${connectMenuOpen ? styles.connectMenuOpen : styles.connectMenuClosed}`}>
-              <p className={styles.dropdownOption} onClick={() => disconnect()}>Disconnect</p>
+              <p className={styles.dropdownOption} onClick={() => dropdownAction(() => disconnect())}>Disconnect</p>
               <Link href="/mytokens">
                 <p className={styles.dropdownOption}>My Tokens</p>
               </Link>
             </div>
-          </>
+          </div>
           :
           <div className={`${styles.navbarLi} ${styles.connectButton}`} onClick={toggleConnectOpen}>
             <p className={styles.connectButtonText}>Connect</p>
@@ -129,31 +136,41 @@ export const Navbar = () => {
           </div>
         }
         {isClient ? isConnected ?
-          <>
-            <div className={`${styles.navbarLi} ${styles.connectButton}`} onClick={toggleNetworkMenuOpen}>
+          <div className={styles.connectButtonContainer}>
+            <div className={`${styles.navbarLi} ${styles.connectButtonWhite}`} onClick={toggleNetworkMenuOpen}>
               <div className={styles.walletIcon}>
-                <Image src="assets/icons/wallet.svg" alt="wallet" width={20} height={20} className={styles.walletIconImage}></Image>
+                <Image src="assets/icons/wallet.svg" alt="wallet" width={15} height={15} className={styles.walletIconImage}></Image>
               </div>
               <p className={`${styles.connectText}`}>{chain ? chainDetails[chain.id] ? chain.name : "Unsupported" : "Error"}</p>
               <Image src="assets/icons/dropdown.svg" alt="dropdown" width={20} height={20} className={styles.dropdownIcon} />
             </div>
             <div className={`${styles.dropdown} ${networkMenuOpen ? styles.connectMenuOpen : styles.connectMenuClosed}`}>
-              <p className={styles.dropdownOption} onClick={() => switchNetwork?.(250)}>Fantom</p>
-              <p className={styles.dropdownOption} onClick={() => switchNetwork?.(137)}>Polygon</p>
+              <p className={styles.dropdownOption} onClick={() => dropdownAction(() => switchNetwork?.(250))}>Fantom</p>
+              <p className={styles.dropdownOption} onClick={() => dropdownAction(() => switchNetwork?.(137))}>Polygon</p>
             </div>
-          </>
+          </div>
           :
-          <div className={`${styles.navbarLi} ${styles.connectButton}`} onClick={toggleConnectOpen}>
+          <div className={styles.connectButtonContainer}>
+            <div className={`${styles.navbarLi} ${styles.connectButtonWhite}`} onClick={toggleNetworkMenuOpen}>
+              <div className={styles.walletIcon}>
+                <Image src="assets/icons/wallet.svg" alt="wallet" width={20} height={20} className={styles.walletIconImage}></Image>
+              </div>
+              <p className={styles.connectText}>{tempNetwork}</p>
+              <Image src="assets/icons/dropdown.svg" alt="dropdown" width={20} height={20} className={styles.dropdownIcon} />
+            </div>
+            <div className={`${styles.dropdown} ${networkMenuOpen ? styles.connectMenuOpen : styles.connectMenuClosed}`}>
+              <p className={styles.dropdownOption} onClick={() => dropdownAction(() => setTempNetwork("Fantom"))}>Fantom</p>
+              <p className={styles.dropdownOption} onClick={() => dropdownAction(() => setTempNetwork("Polygon"))}>Polygon</p>
+            </div>
+          </div>
+          :
+          <div className={`${styles.navbarLi} ${styles.connectButtonWhite}`}>
             <p className={styles.connectButtonText}>Fantom</p>
           </div>
-          :
-          <div className={`${styles.navbarLi} ${styles.connectButton}`}>
-            <p className={styles.connectButtonText}>Loading...</p>
-          </div>
         }
-        <p className={`${styles.navbarLi} ${styles.factoryButton}`}><a href="/factory">BedrockMint</a></p>
+        <p className={`${styles.navbarLi} ${styles.factoryButton}`}><Link href="/factory">BedrockMint</Link></p>
         <p className={`${styles.navLeft} ${styles.navbarLi}`}>
-          <Image alt="logo" src="/assets/bedrock.png" className={styles.navLogo} width={35} height={35} />
+          <Image alt="logo" src="/assets/bedrock.png" className={styles.navLogo} width={30} height={30} />
           <a className={`${styles.active}`} href="/">Bedrock</a>
         </p>
       </div>

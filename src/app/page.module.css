@@ -1,19 +1,30 @@
 .homeTitle {
-    font-size: 3em;
-    margin: 100px 0px 25px 100px;
-    color: white;
+    font-size: 4em;
+    color: rgb(50,50,50);
+    display: inline-block;
+    margin: 0;
+    margin-right: 1rem;
+}
+.homeTitleCenter {
+  color: var(--accent);
 }
 
 .homeSubtitle {
-    font-size: 2em;
+    font-size: 1.75em;
     margin: 0px 0px 25px 100px;
-    color: white;
+    color: rgb(89, 89, 89);
+    font-weight: bold;
+}
+.homeTitleContainer {
+  margin: 25px 0px 20px 100px;
+  font-weight: bold;
 }
 
 .homeImage {
     width: 100%;
     position: fixed;
     bottom: 0;
+
     left: 0;
     z-index: -1;
 }
@@ -24,41 +35,41 @@
 }
 
 .create {
-    font-size: 2em;
+    font-size: 1em;
+    font-weight: bold;
     text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
     margin-left: 100px;
     margin-bottom: 50px;
-    border: 2px white solid;
     display: inline-block;
-    padding: 10px 15px;
-    color: white;
-    border-radius: 50px;
+    padding: 15px 20px;
+    color: rgb(50,50,50);
+    border-radius: 20px;
     transition: 1s;
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: var(--accent);
+    color: white;
 }
-
-.create:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-}
-
 .about {
     text-align: center;
 }
 
 .app {
-    border: 1px solid #333; /* Border color */
+    border: 1px solid #e3e3e3; /* Border color */
     border-radius: 8px;
     padding: 15px;
     margin-bottom: 50px;
-    margin-left: 50px;
-    margin-right: 50px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease-in-out;
-    background-color: #313131;
-    color: white;
+    margin-left: 100px;
+    margin-right: 100px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #ededed;
+    color: rgb(50,50,50);
+    transition: box-shadow 0.3s ease,transform 0.3s ease-in-out,;
+}
+.app:hover {
+  box-shadow: 0 6px 9px rgba(0, 0, 0, 0.1);
+  transform: translateY(-3px);
 }
 
 .appTitle {
@@ -75,7 +86,7 @@
 .appButton {
     color: white;
     border-radius: 25px;
-    background-color: #ffbd43;
+    background-color: var(--accent);
     border: none;
     padding: 12px;
     cursor: pointer;
@@ -91,120 +102,124 @@
     width: 50%;
 }
 .roadmap {
-    color: white;
-    background-color: rgb(18, 14, 56);
-    display: flex;
-    padding: 50px;
+    color: rgb(50,50,50);
+    display: inline-block;;
+    padding: 50px 100px;
     margin: 0;
-    height: fit-content;
+    width: 50%;
   }
   
   .timeline {
     position: relative;
-    margin: 50px 0 0px 100px;
+    height: 100%;
+    display: inline-block;
+    width: 100%;
   }
   
   .timeline::after {
     content: '';
     position: absolute;
     width: 4px;
-    background-color: #4285f4;
+    background-color: var(--accent);
+    min-height: 100%;
     top: 0;
     bottom: 0;
-    left: 75%;
-    margin-left: -2px;
+    left: 90%;
+    margin-left: calc(-2px - 5%);
   }
-  
-  .timelineItem {
-    position: relative;
-    margin-bottom: 50px;
-    color: black;
-  }
-  
   .timelineItem::after {
     content: '';
     position: absolute;
     width: 25px;
     height: 25px;
-    background-color: #4285f4;
+    background-color: var(--accent);
     border-radius: 50%;
     top: 0;
-    left: 75%;
+    left: 85%;
     transform: translate(-50%, -50%);
   }
   
+  .timelineItem {
+    position: relative;
+    margin-bottom: 50px;
+    color: rgb(50,50,50);
+    transition: transform 0.3s ease-in-out;
+  }
+  .timelineItem:hover {
+    transform: translateY(-3px);
+  }
+
+  
   .timelineContent {
     position: relative;
-    width: 80%;
+    width: 85%;
     padding: 20px;
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 4px;
-    margin-left: -5%;
   }
   
   .timelineContent h2 {
     font-size: 18px;
     margin-top: 0;
   }
-  
-  .timelineContent p {
-    margin-bottom: 0;
-  }
-  .timeline {
-   width: 50%;
-  display: inline;
-  margin-left: 10%;
-  }
-  .roadmaptext {
-    width: 50%;
-  }
-  .roadmapsheading {
-    opacity: 70%;
-    color:#001eff;
-    font-weight: bold;
-    font-size: 1.5em;
-    margin-bottom: 5px;
-  }
-  .roadmapheading {
+  .roadmapHeading {
     font-size: 2.5em;
     margin-top: 0;
+    margin-bottom: 0;
   }
   @media (max-width: 800px) {
   .timeline {
     display: block;
     width: 100%;
   }
-  
-  .roadmaptext {
-    width: 100%;
-    display: block;
   }
-  .roadmap {
-    display: block;
-  }
-  }
-  .half {
-    width: 50%;
+  .topSection {
     display: inline-block;
-    height: fit-content;
+    margin: 100px 0;
+    width: 50%;
   }
   
 @media screen and (max-width: 660px) {
     .app1 {
         width: 100%;
     }
-    .homeTitle, .homeSubtitle, .create {
+    .homeSubtitle, .create, .homeTitleContainer {
         margin-left: 25px;
         margin-right: 25px;
     }
     .create {
         margin-bottom: 50px;
     }
-    .half {
+    .topSection {
         width: 100%;
     }
     .bitcoin {
         display: none;
     }
+}
+.appHeader {
+  font-size: 2.5em;
+  margin-left: 100px;
+  font-weight: bold;
+}
+.polygonLogo {
+  position: relative;
+}
+.polygonImage {
+  left: 25%;
+  position: absolute;
+  transform: translateY(-50%);
+}
+.polygonImage {
+  animation: move 3s ease-in-out infinite;
+}
+
+@keyframes move {
+  0%, 100% {
+    transform: translateY(-50%);
+  }
+  50% {
+    transform: translateY(calc(-50% + 25px)) translateX(25px);
+  }
 }

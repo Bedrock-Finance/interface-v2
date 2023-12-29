@@ -153,7 +153,7 @@ export const Navbar = () => {
           <div className={styles.connectButtonContainer}>
             <div className={`${styles.navbarLi} ${styles.connectButtonWhite}`} onClick={toggleNetworkMenuOpen}>
               <div className={styles.walletIcon}>
-                <Image src="assets/icons/wallet.svg" alt="wallet" width={20} height={20} className={styles.walletIconImage}></Image>
+                <Image src="assets/icons/wallet.svg" alt="wallet" width={15} height={15} className={styles.walletIconImage}></Image>
               </div>
               <p className={styles.connectText}>{tempNetwork}</p>
               <Image src="assets/icons/dropdown.svg" alt="dropdown" width={20} height={20} className={styles.dropdownIcon} />

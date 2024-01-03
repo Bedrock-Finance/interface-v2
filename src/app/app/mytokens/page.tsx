@@ -1,20 +1,12 @@
 "use client";
 
 import { tokenDeployerABI } from '@/ABIs/tokenDeployer';
-import { useState } from "react";
 import styles from "./page.module.css";
 import { erc20ABI, useContractReads, useNetwork, useContractRead, useAccount } from 'wagmi';
 
 import { useIsMounted } from "usehooks-ts";
 import { ChangeNetwork } from '@/Components/changeNetwork/changeNetwork';
-import { chainDetails } from '../../Constants/config';
-interface Token {
-    contractAddress: string;
-    name: string;
-    symbol: string;
-    supply: number;
-    decimals: number;
-}
+import { tokenDeployerDetails } from '../../../Constants/config';
 
 export default function MyTokens(): JSX.Element {
     const isMounted = useIsMounted();
@@ -24,13 +16,8 @@ export default function MyTokens(): JSX.Element {
 
     const chainId: string | number = chain ? (chain && chain.id) : 250;
 
-    const tokenDeployerContract = {
-        address: chainDetails[chainId] as `0x${string}`,
-        abi: tokenDeployerABI,
-    }
-
     const { data: contracts } = useContractRead({
-        address: chainDetails[chainId] as `0x${string}`,
+        address: tokenDeployerDetails[chainId] as `0x${string}`,
         abi: tokenDeployerABI,
         functionName: 'getTokensDeployedByUser',
         args: [address as `0x${string}`]
@@ -81,12 +68,10 @@ export default function MyTokens(): JSX.Element {
         }
         return namedData;
     }
-
-
  
     return (
         <div className={styles.myTokens}>
-            {isMounted() && (chainId && !chainDetails[chainId]) && <ChangeNetwork />}
+            {isMounted() && (chainId && !tokenDeployerDetails[chainId]) && <ChangeNetwork changeNetworkToChainId={250}/>}
             <div className={styles.myTokensHeading}>
                 <p className={styles.heading}>My Tokens</p>
                 <p className={styles.subheading}>See all the tokens you have created!</p>
@@ -95,7 +80,6 @@ export default function MyTokens(): JSX.Element {
             {isMounted() && contracts && !contracts[0] && (
                 <p className={styles.myTokensError}>No tokens available.</p>
             )}
-
             {isMounted() && contracts && contracts[0] && tempTokenData && tempTokenData[0] && (splitData(tempTokenData)).map((token, index: number) => (
                 <div key={index} className={styles.token}>
                     <p className={styles.tokenName}>{token.name} ({token.symbol})</p>
@@ -104,7 +88,6 @@ export default function MyTokens(): JSX.Element {
                     <p>Decimals: {token.decimals}</p>
                 </div>
             ))}
-
         </div>
     );
 }

@@ -11,7 +11,10 @@ import { ToastContainer } from "react-toastify";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: 'Bedrock Finance | Create No-Code Cryptocurrencies',
+  title: {
+    default: 'Bedrock Finance | Create No-Code Cryptocurrencies',
+    template: '%s | Bedrock Finance',
+  },
   description: 'With Bedrock Finance you can tokenize assets in seconds. Tokens are gas efficient, safe and have undergone extensive testing.',
 }
 

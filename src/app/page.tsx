@@ -3,8 +3,7 @@ import styles from "./page.module.css";
 import Image from "next/image";
 
 export const metadata = {
-    title: 'Home | Bedrock Finance | Create No-Code Cryptocurrencies',
-    description: 'With Bedrock Finance you can tokenize assets in seconds. Tokens are gas efficient, safe and have undergone extensive testing.',
+    title: "Home | Create no-code cryptocurrencies"
 }
 
 export default function Home() {
@@ -17,7 +16,7 @@ export default function Home() {
                     <p className={styles.homeTitle}>Launchpad</p>
                 </div>
                 <p className={styles.homeSubtitle}>Launch your token on the easiest to use multichain launchpad</p>
-                <a href="/factory" className={styles.create}>Create A Token</a>
+                <a href="/app/factory" className={styles.create}>Create A Token</a>
             </div>
             <div className={`${styles.topSection} ${styles.polygonLogo}`}>
                 <Image src="/assets/polygon-badge.png" alt="polygon" width={300} height={300} className={styles.polygonImage} />
@@ -27,7 +26,7 @@ export default function Home() {
                 <div className={styles.appSection}>
                     <p className={styles.appTitle}>BedrockMint v1</p>
                     <p className={styles.appDescription}>Build your own pre-audited cryptocurrency within seconds. Bedrock uses complex algorithms to ensure that your token is safe, gas efficient, and has no differences compared to non-automated contracts.</p>
-                    <a href="/factory" className={styles.appButton}>Launch</a>
+                    <a href="/app/factory" className={styles.appButton}>Launch</a>
                 </div>
                 <div className={styles.appSection}>
                     <div className={styles.statistic}>

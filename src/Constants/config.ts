@@ -1,6 +1,6 @@
 "use client";
 
-import { fantom, polygon } from 'wagmi/chains';
+import { fantom, polygon, fantomTestnet } from 'wagmi/chains';
 import { createConfig, configureChains } from 'wagmi'
 
 import { publicProvider } from 'wagmi/providers/public'
@@ -11,7 +11,7 @@ import { MetaMaskConnector } from 'wagmi/connectors/metaMask'
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
 
 export const { chains, publicClient, webSocketPublicClient } = configureChains(
-  [fantom, polygon],
+  [fantom, polygon, fantomTestnet],
   [publicProvider()],
 )
 
@@ -51,7 +51,10 @@ export const config = createConfig({
   webSocketPublicClient,
 })
 
-export const chainDetails: { [key: string]: string } = {
+export const tokenDeployerDetails: { [key: string]: string } = {
   "250" : "0x5746A1ec97d91c594e6042a7A42c8285C4c3A0EE",
   "137" : "0x5746A1ec97d91c594e6042a7A42c8285C4c3A0EE"
+}
+export const multisendDetails: { [key: string]: string } = {
+  "4002" : "0xeC4993Ab1a113A15e94c33748344954E15451d4e",
 }

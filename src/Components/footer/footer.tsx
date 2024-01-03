@@ -27,11 +27,11 @@ export const Footer = () => {
             </div>
             <div className={styles.footerSection}>
             <p className={styles.footerHeader}>Apps</p>
-            <Link target="_blank" href="/factory" className={styles.footerElement}>
+            <Link target="_blank" href="/app/factory" className={styles.footerElement}>
                 <Image src="/assets/icons/microchip-solid.svg" alt="bdrkmint v1" height={25} width={25} className={styles.footerIcon} />
                 <p className={styles.footerElementText}>BedrockMint v1</p>
             </Link>
-            <Link target="_blank" href="/mytokens" className={styles.footerElement}>
+            <Link target="_blank" href="/app/mytokens" className={styles.footerElement}>
                 <Image src="/assets/icons/coins-solid.svg" alt="my tokens" height={25} width={25} className={styles.footerIcon} />
                 <p className={styles.footerElementText}>My Tokens</p>
             </Link>

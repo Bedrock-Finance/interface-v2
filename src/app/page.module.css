@@ -68,7 +68,6 @@
   transition: box-shadow 0.3s ease, transform 0.3s ease-in-out;
   display: flex;
 }
-
 .app:hover {
   box-shadow: 0 6px 9px rgba(0, 0, 0, 0.1);
   transform: translateY(-3px);
@@ -81,18 +80,13 @@
   font-weight: bold;
 }
 
-.bitcoin {
-  width: 250px;
-  display: block;
-  margin: auto;
-}
-
 .appButton {
+  font-weight: bold;
   color: white;
-  border-radius: 25px;
+  border-radius: 15px;
   background-color: var(--accent);
   border: none;
-  padding: 12px;
+  padding: 10px;
   cursor: pointer;
   margin-top: 10px;
   display: block;
@@ -205,42 +199,10 @@
   margin-bottom: 0;
 }
 
-@media (max-width: 800px) {
-  .timeline {
-    display: block;
-    width: 100%;
-  }
-}
-
 .topSection {
   display: inline-block;
   margin: 100px 0;
   width: 50%;
-}
-
-@media screen and (max-width: 660px) {
-  .appSection {
-    width: 100%;
-  }
-
-  .homeSubtitle,
-  .create,
-  .homeTitleContainer {
-    margin-left: 25px;
-    margin-right: 25px;
-  }
-
-  .create {
-    margin-bottom: 50px;
-  }
-
-  .topSection {
-    width: 100%;
-  }
-
-  .bitcoin {
-    display: none;
-  }
 }
 
 .appHeader {
@@ -254,23 +216,70 @@
 }
 
 .polygonImage {
-  left: 25%;
+  left: 50%;
+  top: 50%;
   position: absolute;
   transform: translateY(-50%);
 }
 
 .polygonImage {
-  animation: move 3s ease-in-out infinite;
+  animation: moveDesktop 3s ease-in-out infinite;
 }
 
 @keyframes move {
 
   0%,
   100% {
-    transform: translateY(-50%);
+    transform: translateY(calc(-50% - 12.5px)) translateX(calc(-50% - 12.5px));
   }
 
   50% {
-    transform: translateY(calc(-50% + 25px)) translateX(25px);
+    transform: translateY(calc(-50% + 12.5px)) translateX(calc(-50% + 12.5px));
+  }
+}
+@keyframes moveDesktop {
+
+  0%,
+  100% {
+    transform: translateY(calc(-50% - 12.5px)) translateX(calc(-50% - 12.5px));
+  }
+
+  50% {
+    transform: translateY(calc(-50% + 12.5px)) translateX(calc(-50% + 12.5px));
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .appSection {
+    width: 100%;
+  }
+  .app {
+    width: calc(100% - 80px);
+    margin: 0px 25px 50px 25px;
+  }
+  .homeSubtitle,
+  .create,
+  .homeTitleContainer,
+  .appHeader {
+    margin-left: 25px;
+  }
+  .roadmap {
+    padding: 50px 25px;
+    width: calc(100% - 50px);
+  }
+
+  .create {
+    margin-bottom: 50px;
+  }
+  .topSection {
+    display: block;
+    width: 100%;
+  }
+  .polygonLogo  {
+    min-height: 150px;
+  }
+  .polygonImage {
+    animation: move 3s ease-in-out infinite;
+    left: 50%;
   }
 }

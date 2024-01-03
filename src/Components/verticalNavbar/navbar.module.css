@@ -1,0 +1,7 @@
+.navbar {
+    position: fixed;
+    height: 100%;
+    background-color: hsl(0, 0%, 88%);
+    max-width: 150px;
+    width: 100%;
+}

@@ -1,14 +1,13 @@
 "use client";
 
 import styles from "./navbar.module.css";
-import { useState, useEffect, MouseEventHandler } from "react";
+import { useState, useEffect, useContext } from "react";
 
 import Image from 'next/image'
 import Link from "next/link";
 
 import {
   useAccount,
-  useConnect,
   useDisconnect,
   useNetwork,
   useSwitchNetwork
@@ -22,15 +21,22 @@ import { tokenDeployerDetails } from "@/Constants/config";
 
 import { chains } from "@/Constants/config";
 
-import { ConnectWallet } from "../connectWallet/connectWallet";
+import { ConnectWallet } from "../changeNetwork/connectWallet/connectWallet";
 
-export const Navbar = () => {
+export function Navbar(
+  { isApp, onOpenChange }: { isApp: boolean, onOpenChange: (newInfo: boolean) => void }) {
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const [connectOpen, setConnectOpen] = useState<boolean>(false);
   const [connectMenuOpen, setConnectMenuOpen] = useState<boolean>(false);
   const [networkMenuOpen, setNetworkMenuOpen] = useState<boolean>(false);
   const [isClient, setIsClient] = useState<boolean>(false);
   const [tempNetwork, setTempNetwork] = useState<string>("Fantom");
+  const [isVerticalNavOpen, setIsVerticalNavOpen] = useState<boolean>(false);
+
+  const updateNavOpen = () => {
+    setIsVerticalNavOpen(!isVerticalNavOpen);
+    onOpenChange(!isVerticalNavOpen); // Pass the new information to the parent component
+};
 
   const { address, isConnected } = useAccount();
   const { disconnect } = useDisconnect();
@@ -75,12 +81,8 @@ export const Navbar = () => {
     <nav>
       {!isConnected && connectOpen && <Overlay onClick={toggleConnectOpen} />}
       {!isConnected && connectOpen && <ConnectWallet />}
-      <div className={`${styles.menu} ${menuOpen ? styles.menuOpen : styles.menuClosed}`}>
-        <p className={styles.navElement}><a href="/app/factory">BedrockMint</a></p>
-      </div>
       <div className={styles.navbar}>
-        <p className={`${styles.navbarLi} ${styles.menuIcon}`} aria-label="Toggle Menu" onClick={toggleMenuOpen}>☰</p>
-        {isClient ? isConnected ?
+        {isApp && (isClient ? isConnected ?
           <div className={styles.connectButtonContainer}>
             <div className={`${styles.navbarLi} ${styles.connectButtonWhite}`} onClick={toggleConnectMenuOpen}>
               <div className={styles.walletIcon}>
@@ -104,8 +106,8 @@ export const Navbar = () => {
           <div className={`${styles.navbarLi} ${styles.connectButton}`}>
             <p className={styles.connectButtonText}>Loading...</p>
           </div>
-        }
-        {isClient ? isConnected ?
+        )}
+        {isApp && (isClient ? isConnected ?
           <div className={styles.connectButtonContainer}>
             <div className={`${styles.navbarLi} ${styles.connectButtonWhite}`} onClick={toggleNetworkMenuOpen}>
               <div className={styles.walletIcon}>
@@ -137,12 +139,23 @@ export const Navbar = () => {
           <div className={`${styles.navbarLi} ${styles.connectButtonWhite}`}>
             <p className={styles.connectButtonText}>Fantom</p>
           </div>
+        )}
+        {isApp &&
+          <p onClick={updateNavOpen} className={`${styles.navLeft} ${styles.navbarLi} ${styles.active}`}>☰</p>
         }
-        <p className={`${styles.navbarLi} ${styles.factoryButton}`}><Link href="/app/factory">BedrockMint</Link></p>
-        <p className={`${styles.navLeft} ${styles.navbarLi}`}>
+        { !isApp &&
+        <Link href="/app/factory">
+          <div className={`${styles.navbarLi} ${styles.connectButton}`}>
+          <p className={styles.connectButtonText}>Launch App</p>
+        </div>
+        </Link>
+          }
+          <Link href="/">
+        <p className={`${styles.navLeft} ${styles.navbarLi} ${styles.active}`}>
           <Image alt="logo" src="/assets/bedrock.png" className={styles.navLogo} width={24} height={24} />
-          <a className={`${styles.active}`} href="/">Bedrock</a>
+          Bedrock
         </p>
+        </Link>
       </div>
     </nav>
   );

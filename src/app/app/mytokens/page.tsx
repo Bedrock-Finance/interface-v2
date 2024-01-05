@@ -7,9 +7,15 @@ import { erc20ABI, useContractReads, useNetwork, useContractRead, useAccount } f
 import { useIsMounted } from "usehooks-ts";
 import { ChangeNetwork } from '@/Components/changeNetwork/changeNetwork';
 import { tokenDeployerDetails } from '../../../Constants/config';
+import { useState, useEffect } from 'react';
 
 export default function MyTokens(): JSX.Element {
-    const isMounted = useIsMounted();
+
+    const [isClient, setIsClient] = useState(false)
+ 
+  useEffect(() => {
+    setIsClient(true)
+  }, []);
 
     const { address } = useAccount()
     const { chain } = useNetwork();
@@ -70,17 +76,17 @@ export default function MyTokens(): JSX.Element {
     }
  
     return (
-        <div className={styles.myTokens}>
-            {isMounted() && (chainId && !tokenDeployerDetails[chainId]) && <ChangeNetwork changeNetworkToChainId={250}/>}
+        <div>
+            {isClient && (chainId && !tokenDeployerDetails[chainId]) && <ChangeNetwork changeNetworkToChainId={250}/>}
             <div className={styles.myTokensHeading}>
                 <p className={styles.heading}>My Tokens</p>
                 <p className={styles.subheading}>See all the tokens you have created!</p>
             </div>
-            {!isMounted() && <p className={styles.myTokensError}>Loading...</p>}
-            {isMounted() && contracts && !contracts[0] && (
+            {!isClient && <p className={styles.myTokensError}>Fetching data from blockchain...</p>}
+            {isClient && contracts && !contracts[0] && (
                 <p className={styles.myTokensError}>No tokens available.</p>
             )}
-            {isMounted() && contracts && contracts[0] && tempTokenData && tempTokenData[0] && (splitData(tempTokenData)).map((token, index: number) => (
+            {isClient && contracts && contracts[0] && tempTokenData && tempTokenData[0] && (splitData(tempTokenData)).map((token, index: number) => (
                 <div key={index} className={styles.token}>
                     <p className={styles.tokenName}>{token.name} ({token.symbol})</p>
                     <p>Contract Address: {contracts && contracts[index]}</p>

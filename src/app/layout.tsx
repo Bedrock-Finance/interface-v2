@@ -1,9 +1,7 @@
 import "./globals.css"
 
-import { Navbar } from "@/Components/navbar/navbar";
 import { Footer } from "@/Components/footer/footer";
 
-import type { WindowProvider } from '@wagmi/connectors'
 import { config } from "@/Constants/config";
 import { WagmiConfig } from "wagmi";
 
@@ -28,9 +26,7 @@ export default function RootLayout({
       <body>
         <WagmiConfig config={config}>
           <ToastContainer />
-          <Navbar />
           {children}
-          <Footer />
         </WagmiConfig>
       </body>
     </html>

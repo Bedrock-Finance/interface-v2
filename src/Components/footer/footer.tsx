@@ -20,7 +20,7 @@ export const Footer = () => {
                 <Image src="/assets/icons/youtube.svg" alt="youtube" height={25} width={25} className={styles.footerIcon} />
                 <p className={styles.footerElementText}>YouTube</p>
             </Link>
-            <Link target="_blank" href="https://discord.gg/WrE7K4ZZMb" className={styles.footerElement}>
+            <Link target="_blank" href="https://discord.gg/3rTXvSRasK" className={styles.footerElement}>
                 <Image src="/assets/icons/discord.svg" alt="discord" height={25} width={25} className={styles.footerIcon} />
                 <p className={styles.footerElementText}>Discord</p>
             </Link>

@@ -26,7 +26,9 @@ export function ConnectWallet() {
             {String(connector.name) === "Coinbase Wallet" && <Image src="/assets/icons/coinbase.png" alt="logo" width={30} height={30} className={styles.walletLogo} />}
             {String(connector.name) === "WalletConnect" && <Image src="/assets/icons/walletConnect.png" alt="logo" width={30} height={30} className={styles.walletLogo} />}
             {String(connector.name) === "Injected" && <Image src="/assets/icons/wallet.svg" alt="logo" width={30} height={30} className={styles.walletLogo} />}
+            <p className={styles.connector}>
             {connector.name}
+            </p>
             {(!connector.ready && isMounted()) && ' (uninstalled)'}
             {isLoading &&
               connector.id === pendingConnector?.id &&

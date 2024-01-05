@@ -8,24 +8,27 @@
     z-index: 11;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     color: rgb(102, 102, 102);
-
+    height: 48.333px;
 }
 
 .navbarLi {
     float: right;
     font-size: 20px;
+    line-height: 26.67px;
     margin: 10px 5px;
 }
 
 .navLogo {
     display: inline-block;
     vertical-align: middle;
-    margin-right: 5px;
+    margin: 0 5px;
+    transform: scale(1.5);
 }
 
 .active {
     display: inline-block;
     font-weight: bold;
+    cursor: pointer;
 }
 
 

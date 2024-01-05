@@ -1,14 +1,16 @@
+"use client"
+
 import styles from "./page.module.css";
 
 import Image from "next/image";
 
-export const metadata = {
-    title: "Home | Create no-code cryptocurrencies"
-}
+import { Navbar } from "@/Components/navbar/navbar";
+import { Footer } from "@/Components/footer/footer";
 
 export default function Home() {
     return (
         <>
+            <Navbar isApp={false} onOpenChange={() => {}}/>
             <div className={styles.topSection}>
                 <div className={styles.homeTitleContainer}>
                     <p className={styles.homeTitle}>The </p>
@@ -77,6 +79,7 @@ export default function Home() {
                     </div>
                 </div>
             </div>
+            <Footer />
         </>
     )
 }

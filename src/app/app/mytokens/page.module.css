@@ -7,7 +7,7 @@
     margin-right: 100px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
-    background-color: #efefef; /* Token background color */
+    background-color: #efefef;
     overflow-wrap: break-word;
     color: rgb(52, 52, 52);
   }
@@ -28,7 +28,7 @@
     margin-bottom: 8px;
   }
 .myTokensHeading {
-    padding: 100px 0 50px 100px;
+    padding: 0px 0 50px 100px;
     margin-bottom: 0px;
 }
 .heading {
@@ -42,7 +42,4 @@
 .myTokensError {
   margin-left: 100px;
   color: rgba(50,50,50);
-}
-.myTokens {
-  min-height: 100vh;
 }

@@ -47,3 +47,9 @@
 .uninstalled {
     cursor: default;
 }
+.connector {
+    float: left;
+    margin: 0;
+    vertical-align: middle;
+    margin-top: 5px;
+}

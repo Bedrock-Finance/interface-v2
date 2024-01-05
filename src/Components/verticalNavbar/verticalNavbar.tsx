@@ -33,7 +33,7 @@ export function VerticalNavbar({ children, isOpen }: { children: React.ReactNode
       title: 'Swap',
       image: '/assets/icons/rotate-solid.svg',
       links: [
-        { text: 'Equalizer', href: 'https://example.com' },
+        { text: 'Equalizer', href: 'https://equalizer.exchange/swap' },
       ],
     },
     {

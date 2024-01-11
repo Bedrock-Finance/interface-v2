@@ -214,7 +214,7 @@ export default function Multisender(): JSX.Element {
                     {isToken && (!allowance ? true : (values.reduce((acc, curr) => acc + Number(curr), Number(0)) === 0 ? true : (Number(allowance) < values.reduce((acc, curr) => acc + Number(curr), Number(0))))) &&
                         (<button
                             onClick={() => writeApprove?.()}
-                            className={`${styles.deployButton} ${isClient && !isError && !isLoading && isConnected && isValid && !(isLoadingTransactionApprove || isLoadingWriteApprove) ? "" : styles.disabled}`}
+                            className={`${styles.deployButton} ${isClient && !isError && !(Number.isNaN(Number(allowance))) && !isLoading && isConnected && isValid && !(isLoadingTransactionApprove || isLoadingWriteApprove) ? "" : styles.disabled}`}
                             disabled={isClient && !(Number.isNaN(Number(allowance))) && !isLoading && isConnected && isValid && !(isLoadingTransactionApprove || isLoadingWriteApprove) ? false : true}
                         >
                             {isClient ? 

@@ -11,13 +11,13 @@ import { useState, useEffect } from 'react';
 
 export default function MyTokens(): JSX.Element {
 
-    const [isClient, setIsClient] = useState(false)
- 
-  useEffect(() => {
-    setIsClient(true)
-  }, []);
+    const [isClient, setIsClient] = useState(false);
 
-    const { address } = useAccount()
+    useEffect(() => {
+        setIsClient(true)
+    }, []);
+
+    const { address, isConnected } = useAccount();
     const { chain } = useNetwork();
 
     const chainId: string | number = chain ? (chain && chain.id) : 250;
@@ -74,26 +74,31 @@ export default function MyTokens(): JSX.Element {
         }
         return namedData;
     }
- 
+
     return (
         <div>
-            {isClient && (chainId && !tokenDeployerDetails[chainId]) && <ChangeNetwork changeNetworkToChainId={250}/>}
+            {isClient && (chainId && !tokenDeployerDetails[chainId]) && <ChangeNetwork changeNetworkToChainId={250} dappName={"BedrockMint"} networks={"Fantom, and Polygon"} />}
             <div className={styles.myTokensHeading}>
                 <p className={styles.heading}>My Tokens</p>
                 <p className={styles.subheading}>See all the tokens you have created!</p>
             </div>
-            {!isClient && <p className={styles.myTokensError}>Fetching data from blockchain...</p>}
-            {isClient && contracts && !contracts[0] && (
-                <p className={styles.myTokensError}>No tokens available.</p>
-            )}
-            {isClient && contracts && contracts[0] && tempTokenData && tempTokenData[0] && (splitData(tempTokenData)).map((token, index: number) => (
-                <div key={index} className={styles.token}>
-                    <p className={styles.tokenName}>{token.name} ({token.symbol})</p>
-                    <p>Contract Address: {contracts && contracts[index]}</p>
-                    <p>Supply: {Number(token.supply) / 10**(token.decimals)}</p>
-                    <p>Decimals: {token.decimals}</p>
-                </div>
-            ))}
+            {!isClient && <p className={styles.myTokensError}>Loading...</p>}
+            { isClient && isConnected &&
+                <>
+                    {isClient && contracts && !contracts[0] && (
+                        <p className={styles.myTokensError}>No tokens available.</p>
+                    )}
+                    {isClient && contracts && contracts[0] && tempTokenData && tempTokenData[0] && (splitData(tempTokenData)).map((token, index: number) => (
+                        <div key={index} className={styles.token}>
+                            <p className={styles.tokenName}>{token.name} ({token.symbol})</p>
+                            <p>Contract Address: {contracts && contracts[index]}</p>
+                            <p>Supply: {Number(token.supply) / 10 ** (token.decimals)}</p>
+                            <p>Decimals: {token.decimals}</p>
+                        </div>
+                    ))}
+                </>
+            }
+            { isClient && !isConnected && (<p className={styles.myTokensError}>No Account Connected</p>)}
         </div>
     );
 }

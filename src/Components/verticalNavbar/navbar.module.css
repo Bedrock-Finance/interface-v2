@@ -73,13 +73,7 @@
   transform: rotate(180deg);
 }
 .navbarLinks {
-  max-height: 0;
   overflow: hidden;
-  transition: max-height 0.5s;
-}
-
-.show {
-  max-height: 250px;
 }
 .activeLink {
   color: var(--accent);

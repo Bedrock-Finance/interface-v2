@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, ChangeEvent } from "react";
+import { useState, ChangeEvent, useEffect } from "react";
 
 import styles from "./page.module.css";
 
@@ -24,7 +24,7 @@ import {
 
 import { ChangeNetwork } from "@/Components/changeNetwork/changeNetwork";
 
-import { useIsMounted, useDebounce } from "usehooks-ts";
+import { useDebounce } from "usehooks-ts";
 
 import { capitalizeFirstLetter } from "../../../Utils/capitilizeFirstLetter";
 
@@ -40,9 +40,14 @@ export default function Factory(): JSX.Element {
     const dSupply = useDebounce(supply, 500);
     const dDecimals = useDebounce(decimals, 500);
 
-    const [errorMenu, setErrorMenu] = useState(false);
+    const [isClient, setIsClient] = useState(false);
 
-    const isMounted = useIsMounted();
+    useEffect(() => {
+        setIsClient(true);
+      }, []);
+
+
+    const [errorMenu, setErrorMenu] = useState(false);
 
     const { isConnected } = useAccount();
 
@@ -114,7 +119,7 @@ export default function Factory(): JSX.Element {
 
     return (
         <div>
-            {isMounted() && (chainId && !tokenDeployerDetails[chainId]) && <ChangeNetwork changeNetworkToChainId={250}/>}
+            {isClient && (chainId && !tokenDeployerDetails[chainId]) && <ChangeNetwork changeNetworkToChainId={250} dappName={"BedrockMint"} networks={"Fantom, and Polygon"}/>}
             <div className={styles.tokenDeployer}>
                 <p className={styles.title}>BedrockMint v1</p>
                 <p className={styles.inputDescription}>by Bedrock Finance</p>
@@ -170,10 +175,10 @@ export default function Factory(): JSX.Element {
                     className={`${styles.deployButton} ${!isPrepareError && isConnected && isFormFilled() && Number(decimals) >= 0 && Number(decimals) <= 18 && Number(supply) >= 0 && !(isLoadingTransaction || isLoadingWrite) ? "" : styles.disabled}`}
                     disabled={!isPrepareError && isConnected && isFormFilled() && Number(decimals) >= 0 && Number(decimals) <= 18 && Number(supply) >= 0 && !(isLoadingTransaction || isLoadingWrite) ? false : true}
                 >
-                    {isMounted() ? isConnected ? (isLoadingTransaction || isLoadingWrite) ? 'Minting...' : ("Deploy (" + String(deployFee && Number(deployFee) * 10**(-18)) + " " + String(chain ? (chain && chain.nativeCurrency.symbol) : "FTM")) + ")" : "Not Connected" : "Loading..."}
+                    {isClient ? isConnected ? (isLoadingTransaction || isLoadingWrite) ? 'Minting...' : ("Deploy (" + String(deployFee && Number(deployFee) * 10**(-18)) + " " + String(chain ? (chain && chain.nativeCurrency.symbol) : "FTM")) + ")" : "Not Connected" : "Loading..."}
                 </button>
                 <p className={styles.inputDescription}>(*) is a required field</p>
-                {isMounted() && isConnected &&
+                {isClient && isConnected &&
                     <div className={styles.errorSection}>
                         {(isPrepareError) ?
                             <div onClick={toggleErrorMenuOpen} className={styles.errorCollapsed}>

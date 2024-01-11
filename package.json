@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "decimal.js": "^10.4.3",
     "next": "14.0.3",
     "pino-pretty": "^10.3.0",
     "react": "^18",

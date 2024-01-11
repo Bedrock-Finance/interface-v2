@@ -37,6 +37,19 @@ export default function Home() {
                     </div>
                 </div>
             </div>
+            <div className={styles.app}>
+                <div className={styles.appSection}>
+                    <p className={styles.appTitle}>Multisender</p>
+                    <p className={styles.appDescription}>Send tokens and coins in a single transaction, reducing gas fees signifigantly. Airdrop tokens and coins to users or send payments to friends without any service fee, and availibility to test it out on testnet.</p>
+                    <a href="/app/multisender" className={styles.appButton}>Launch</a>
+                </div>
+                <div className={styles.appSection}>
+                    <div className={styles.statistic}>
+                        <p className={styles.statisticNumber}>1</p>
+                        <p className={styles.statisticName}>Chain Online</p>
+                    </div>
+                </div>
+            </div>
             <div className={styles.roadmap}>
                 <p className={styles.roadmapHeading}>Roadmap</p>
                 <p>See what we&apos;ve accomplished and what&apos;s in store for Bedrock Finance.</p>

@@ -5,6 +5,7 @@
     background-color: #e5e5e5;
     border-radius: 10px;
     margin: auto;
+    margin-bottom: 100px;
 }
 
 .inputGroup {
@@ -79,8 +80,8 @@
     width: 100%;
 }
 .errorDropdown {
-    display: inline-block;
     vertical-align: middle;
     float: right;
     vertical-align: middle;
+    filter: invert(15%) sepia(0%) saturate(1%) hue-rotate(40deg) brightness(30%) contrast(90%);
 }

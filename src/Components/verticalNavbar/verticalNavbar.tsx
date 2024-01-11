@@ -10,11 +10,11 @@ import { usePathname } from 'next/navigation';
 import { useIsMounted } from 'usehooks-ts';
 
 export function VerticalNavbar({ children, isOpen }: { children: React.ReactNode; isOpen: boolean }) {
-  const [openSections, setOpenSections] = useState<boolean[]>([true, false, false]);
+  const [openSections, setOpenSections] = useState<boolean[]>([true, true, false, false, false]);
 
   const toggleSection = (index: number) => {
     const updatedSections = [...openSections];
-    updatedSections[index] = !updatedSections[index]; // Toggle the state of the clicked section
+    updatedSections[index] = !updatedSections[index];
     setOpenSections(updatedSections);
   };
 
@@ -27,6 +27,13 @@ export function VerticalNavbar({ children, isOpen }: { children: React.ReactNode
       links: [
         { text: 'BedrockMint v1', href: '/app/factory' },
         { text: 'My Tokens', href: '/app/mytokens' },
+      ],
+    },
+    {
+      title: 'Tools',
+      image: '/assets/icons/paper-plane-solid.svg',
+      links: [
+        { text: 'Multisender', href: '/app/multisender' },
       ],
     },
     {
@@ -70,7 +77,12 @@ export function VerticalNavbar({ children, isOpen }: { children: React.ReactNode
               <p className={styles.navbarSectionTitle}>{section.title}</p>
               <Image src="/assets/icons/dropdown.svg" alt="dropdown" width={20} height={20} className={`${styles.dropdownIcon} ${openSections[index] && styles.flipped}`} />
             </div>
-            <div className={`${openSections[index] && styles.show} ${styles.navbarLinks}`}>
+            <div className={`${openSections[index] && styles.show} ${styles.navbarLinks}`}
+            style={{
+                maxHeight: openSections[index] ? `${section.links.length * 40}px` : '0',
+                transition: "max-height " + String(section.links.length * 0.1) + "s ease-out",
+              }}
+              >
                 {section.links.map((link, linkIndex) => (
                   <Link href={link.href} key={linkIndex} target={!link.href.startsWith("/") ? "_blank" : "_self"}>
                     <p className={`${styles.navbarText} ${ link.href === pathname ? styles.activeLink : ''}`}>{link.text}</p>

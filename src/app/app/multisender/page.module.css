@@ -4,7 +4,8 @@
     padding: 20px;
     background-color: #e5e5e5;
     border-radius: 10px;
-    margin: calc(37px + 1.4em + 30px) auto;
+    margin: auto;
+    margin-bottom: 100px;
 }
 
 .title {
@@ -56,6 +57,7 @@ textarea.tokenInput {
     font-size: 1em;
     cursor: pointer;
     width: 100%;
+    margin: 5px 0;
 }
 
 .error {
@@ -87,8 +89,20 @@ textarea.tokenInput {
     width: 100%;
 }
 .errorDropdown {
-    display: inline-block;
     vertical-align: middle;
     float: right;
-    vertical-align: middle;
+    filter: invert(15%) sepia(0%) saturate(1%) hue-rotate(40deg) brightness(30%) contrast(90%);
+}
+.typeInput {
+    color: white;
+    background-color: var(--accent);
+    border: none;
+    padding: 10px;
+    width: calc(50% - 20px);
+    font-size: 1.25em;
+    margin: 0px 10px;
+    border-radius: 25px;
+}
+.selected {
+    background-color: rgb(27, 94, 236);
 }

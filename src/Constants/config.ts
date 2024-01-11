@@ -56,5 +56,6 @@ export const tokenDeployerDetails: { [key: string]: string } = {
   "137" : "0x5746A1ec97d91c594e6042a7A42c8285C4c3A0EE"
 }
 export const multisendDetails: { [key: string]: string } = {
+  "250" : "0xe1B8Fc8e02b9b2C8152dEB18c5D1f6C2b23f8a94",
   "4002" : "0xeC4993Ab1a113A15e94c33748344954E15451d4e",
 }

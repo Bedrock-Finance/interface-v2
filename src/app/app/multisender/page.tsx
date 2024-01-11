@@ -195,7 +195,7 @@ export default function Multisender(): JSX.Element {
                             className={`${styles.tokenInput}`}
                             placeholder="Contract Address"
                         />
-                        <p className={styles.inputDescription}>Example: 0x12345</p>
+                        <p className={styles.inputDescription}>Example: 0x12345...</p>
                         {!isAddress(address) && address.trim().length > 0 && address !== "0x" && (
                             <p className={styles.error}>Invalid address</p>
                         )}
@@ -208,7 +208,6 @@ export default function Multisender(): JSX.Element {
                         className={`${styles.tokenInput}`}
                         placeholder={'Seperate each group with a line break (enter) and each address and value with a comma (",")\nEx:\n0x0000000000000000000000000000000000000001, 1\n0x0000000000000000000000000000000000000002, 5.7'}
                     />
-                    <p className={styles.inputDescription}>Example: 0x12345</p>
                     {!isValid && (
                         <p className={styles.error}>Invalid values</p>
                     )}

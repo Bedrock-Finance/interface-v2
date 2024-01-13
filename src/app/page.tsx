@@ -45,8 +45,8 @@ export default function Home() {
                 </div>
                 <div className={styles.appSection}>
                     <div className={styles.statistic}>
-                        <p className={styles.statisticNumber}>1</p>
-                        <p className={styles.statisticName}>Chain Online</p>
+                        <p className={styles.statisticNumber}>2</p>
+                        <p className={styles.statisticName}>Chains Online</p>
                     </div>
                 </div>
             </div>

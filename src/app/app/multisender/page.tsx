@@ -181,7 +181,7 @@ export default function Multisender(): JSX.Element {
 
     return (
         <div>
-            {isClient && (chainId && !multisendDetails[chainId]) && <ChangeNetwork changeNetworkToChainId={250} dappName={"Multisender"} networks={"Fantom and Fantom Testnet"}/>}
+            {isClient && (chainId && !multisendDetails[chainId]) && <ChangeNetwork changeNetworkToChainId={250} dappName={"Multisender"} networks={"Fantom, Polygon and Fantom Testnet"}/>}
             <div className={styles.tokenDeployer}>
                 <p className={styles.title}>Multisender</p>
                 <p className={styles.inputDescription}>by Bedrock Finance</p>

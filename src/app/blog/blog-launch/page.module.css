@@ -1,11 +1,6 @@
 .article {
     padding: 50px 100px;
 }
-@media screen and (max-width: 600px) {
-    .article {
-        padding: 50px 50px;
-    }
-}
 .articleType {
     font-weight: bold;
     color: var(--accent);
@@ -31,4 +26,12 @@
 .articleContent {
     font-size: 1.2em;
     color: rgb(50, 50, 50);
+}
+@media screen and (max-width: 600px) {
+    .article {
+        padding: 50px 25px;
+    }
+    .articleName {
+        font-size: 2.5em;
+    }
 }

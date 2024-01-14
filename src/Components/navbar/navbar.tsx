@@ -24,7 +24,7 @@ import { chains } from "@/Constants/config";
 import { ConnectWallet } from "../changeNetwork/connectWallet/connectWallet";
 
 export function Navbar(
-  { isApp, onOpenChange }: { isApp: boolean, onOpenChange: (newInfo: boolean) => void }) {
+  { isApp, onOpenChange }: { isApp: boolean, onOpenChange: ((newInfo: boolean) => void) | undefined }) {
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const [connectOpen, setConnectOpen] = useState<boolean>(false);
   const [connectMenuOpen, setConnectMenuOpen] = useState<boolean>(false);
@@ -35,8 +35,8 @@ export function Navbar(
 
   const updateNavOpen = () => {
     setIsVerticalNavOpen(!isVerticalNavOpen);
-    onOpenChange(!isVerticalNavOpen); // Pass the new information to the parent component
-};
+    onOpenChange?.(!isVerticalNavOpen);
+  };
 
   const { address, isConnected } = useAccount();
   const { disconnect } = useDisconnect();
@@ -145,18 +145,25 @@ export function Navbar(
         {isApp &&
           <p onClick={updateNavOpen} className={`${styles.navLeft} ${styles.navbarLi} ${styles.active}`}>☰</p>
         }
-        { !isApp &&
-        <Link href="/app/factory">
-          <div className={`${styles.navbarLi} ${styles.connectButton}`}>
-          <p className={styles.connectButtonText}>Launch App</p>
-        </div>
-        </Link>
-          }
-          <Link href="/">
-        <p className={`${styles.navLeft} ${styles.navbarLi} ${styles.active}`}>
-          <Image alt="logo" src="/assets/bedrock.png" className={styles.navLogo} width={24} height={24} />
-          Bedrock
-        </p>
+        {!isApp &&
+          <Link href="/app/factory">
+            <div className={`${styles.navbarLi} ${styles.connectButton}`}>
+              <p className={styles.connectButtonText}>Launch App</p>
+            </div>
+          </Link>
+        }
+        {!isApp &&
+          <Link href="/blog">
+            <p className={`${styles.navbarLi} ${styles.active}`}>
+              Blog
+            </p>
+          </Link>
+        }
+        <Link href="/">
+          <p className={`${styles.navLeft} ${styles.navbarLi} ${styles.active}`}>
+            <Image alt="logo" src="/assets/bedrock.png" className={styles.navLogo} width={24} height={24} />
+            Bedrock
+          </p>
         </Link>
       </div>
     </nav>

@@ -17,7 +17,7 @@ export default function Home() {
                     <p className={`${styles.homeTitle} ${styles.accentWord}`}>Cheapest </p>
                     <p className={styles.homeTitle}>Launchpad</p>
                 </div>
-                <p className={styles.homeSubtitle}>Launch your token on the easiest to use multichain launchpad</p>
+                <p className={styles.homeSubtitle}>Launch your token on the leading multichain launchpad</p>
                 <a href="/app/factory" className={styles.create}>Create A Token</a>
             </div>
             <div className={`${styles.topSection} ${styles.polygonLogo}`}>

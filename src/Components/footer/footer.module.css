@@ -2,6 +2,7 @@
     margin: 0;
     padding: 10px;
     overflow: hidden;
+    clear: both;
 }
 .footerHeader {
     color: var(--accent);

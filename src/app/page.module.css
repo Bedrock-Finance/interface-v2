@@ -63,7 +63,7 @@
   padding: 15px;
   margin: 0px 100px 50px 100px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  background-color: #ededed;
+  background-color: #fff;
   color: rgb(50, 50, 50);
   transition: box-shadow 0.3s ease, transform 0.3s ease-in-out;
   display: flex;
@@ -127,12 +127,40 @@
 }
 
 
-.roadmap {
+.roadmap, .blog {
   color: rgb(50, 50, 50);
-  display: inline-block;
-  padding: 50px 100px;
+  float: left;
+  padding: 50px 50px;
   margin: 0;
-  width: 50%;
+  width: calc(50% - 100px);
+}
+
+.arcticle {
+  background-color: rgb(250, 250, 250);
+  padding: 25px 50px;
+  border-radius: 20px;
+  color: rgb(50, 50, 50);
+  transition: box-shadow 0.3s ease, transform 0.3s ease-in-out;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.arcticle:hover {
+  box-shadow: 0 6px 9px rgba(0, 0, 0, 0.1);
+  transform: translateY(-3px);
+}
+
+.title {
+  font-size: 2em;
+  font-weight: bold;
+  margin: 0;
+}
+.arcticleDetails {
+  font-size: 1em;
+  color: rgb(150, 150, 150);
+}
+.arcticleDesc {
+  font-size: 1.3em;
 }
 
 .timeline {
@@ -196,7 +224,7 @@
   font-size: 2.5em;
   margin-top: 0;
   font-weight: bold;
-  margin-bottom: 0;
+  margin-bottom: 20px;
 }
 
 .topSection {
@@ -263,7 +291,7 @@
   .appHeader {
     margin-left: 25px;
   }
-  .roadmap {
+  .roadmap, .blog {
     padding: 50px 25px;
     width: calc(100% - 50px);
   }

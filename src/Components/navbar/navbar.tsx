@@ -120,6 +120,7 @@ export function Navbar(
               <p className={styles.dropdownOption} onClick={() => dropdownAction(() => switchNetwork?.(250))}>Fantom</p>
               <p className={styles.dropdownOption} onClick={() => dropdownAction(() => switchNetwork?.(137))}>Polygon</p>
               <p className={styles.dropdownOption} onClick={() => dropdownAction(() => switchNetwork?.(4002))}>Fantom Testnet</p>
+              <p className={styles.dropdownOption} onClick={() => dropdownAction(() => switchNetwork?.(64165))}>Fantom Sonic</p>
             </div>
           </div>
           :
@@ -135,6 +136,7 @@ export function Navbar(
               <p className={styles.dropdownOption} onClick={() => dropdownAction(() => setTempNetwork("Fantom"))}>Fantom</p>
               <p className={styles.dropdownOption} onClick={() => dropdownAction(() => setTempNetwork("Polygon"))}>Polygon</p>
               <p className={styles.dropdownOption} onClick={() => dropdownAction(() => setTempNetwork("Fantom Testnet"))}>Fantom Testnet</p>
+              <p className={styles.dropdownOption} onClick={() => dropdownAction(() => setTempNetwork("Fantom Sonic"))}>Fantom Sonic</p>
             </div>
           </div>
           :

@@ -1,17 +1,37 @@
 "use client";
 
 import { fantom, polygon, fantomTestnet } from 'wagmi/chains';
-import { createConfig, configureChains } from 'wagmi'
+import { createConfig, configureChains } from 'wagmi';
 
-import { publicProvider } from 'wagmi/providers/public'
+import { publicProvider } from 'wagmi/providers/public';
 
-import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet'
-import { InjectedConnector } from 'wagmi/connectors/injected'
-import { MetaMaskConnector } from 'wagmi/connectors/metaMask'
-import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
+import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
+import { InjectedConnector } from 'wagmi/connectors/injected';
+import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
+import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
+
+import { Chain } from '@wagmi/core'
+ 
+export const fantomSonicBuildersTestnet = {
+  id: 64165,
+  name: 'Fantom Sonic',
+  network: 'Fantom Sonic',
+  nativeCurrency: {
+    decimals: 18,
+    name: 'Fantom',
+    symbol: 'FTM',
+  },
+  rpcUrls: {
+    public: { http: ['https://rpc.sonic.fantom.network/'] },
+    default: { http: ['https://rpc.sonic.fantom.network/'] },
+  },
+  blockExplorers: {
+    default: { name: 'SnowTrace', url: 'https://public-sonic.fantom.network' },
+  },
+} as const satisfies Chain;
 
 export const { chains, publicClient, webSocketPublicClient } = configureChains(
-  [fantom, polygon, fantomTestnet],
+  [fantom, polygon, fantomTestnet, fantomSonicBuildersTestnet],
   [publicProvider()],
 )
 
@@ -49,7 +69,7 @@ export const config = createConfig({
   ],
   publicClient,
   webSocketPublicClient,
-})
+});
 
 export const tokenDeployerDetails: { [key: string]: string } = {
   "250" : "0x5746A1ec97d91c594e6042a7A42c8285C4c3A0EE",

@@ -125,6 +125,7 @@
     vertical-align: middle;
     padding: 10px;
     border-bottom: 2px solid rgb(225, 225, 225);
+    cursor: pointer;
 }
 
 .dropdownOption:last-child {

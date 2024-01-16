@@ -7,6 +7,8 @@ import Image from "next/image";
 import { Navbar } from "@/Components/navbar/navbar";
 import { Footer } from "@/Components/footer/footer";
 
+import Link from "next/link";
+
 export default function Home() {
     return (
         <>
@@ -64,34 +66,44 @@ export default function Home() {
                         <div className={styles.timelineContent}>
                             <h2>Q1 2024</h2>
                             <p>✅ Add more wallet connection options</p>
-                            <p>⏳ Launch BedrockMint v1 two more chains</p>
+                            <p>✅ Launch BedrockMint v1 on another chain</p>
                             <p>✅ Create Discord, YouTube and Twitter</p>
                         </div>
                     </div>
                     <div className={styles.timelineItem}>
                         <div className={styles.timelineContent}>
                             <h2>Q2 2024</h2>
-                            <p>❌ Develop and launch BedrockMint v2 on three chains</p>
+                            <p>⏳ Develop and launch BedrockMint v2 on two chains</p>
                             <p>✅ Complete major UI/UX updates</p>
                         </div>
                     </div>
                     <div className={styles.timelineItem}>
                         <div className={styles.timelineContent}>
                             <h2>S2 2024</h2>
-                            <p>❌ Launch BedrockMint v2 on two more chains</p>
-                            <p>❌ Build blog and newsletter</p>
+                            <p>⏳ Launch BedrockMint v2 on another chain</p>
+                            <p>✅ Build blog</p>
                         </div>
                     </div>
                     <div className={styles.timelineItem}>
                         <div className={styles.timelineContent}>
                             <h2>2025</h2>
                             <p>❌ Launch Bedrock Finance $BDRK</p>
-                            <p>❌ Build crypto blog</p>
-                            <p>❌ Launch a second Dapp along with BedrockMint</p>
+                            <p>✅ Launch a second Dapp along with BedrockMint</p>
                         </div>
                     </div>
                 </div>
             </div>
+            <div className={styles.blog}>
+            <p className={styles.roadmapHeading}>Blog</p>
+            <Link href="/blog/blog-launch">
+            <div className={styles.arcticle}>
+                <p className={styles.title}>Bedrock Finance Officially Launches Blog</p>
+                <p className={styles.arcticleDesc}>To expand Bedrock Finance&apos;s impact and reach for news, we officially launch our blog with all updates of Bedrock Finance.</p>
+                <p className={styles.arcticleDetails}>Henry - January 13th, 2023</p>
+            </div>
+            </Link>
+            </div>
+            <br></br>
             <Footer />
         </>
     )

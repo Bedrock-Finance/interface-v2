@@ -95,6 +95,13 @@ export default function Home() {
             </div>
             <div className={styles.blog}>
             <p className={styles.roadmapHeading}>Blog</p>
+            <Link href="/blog/decimals">
+            <div className={styles.arcticle}>
+                <p className={styles.title}>What are token decimals?</p>
+                <p className={styles.arcticleDesc}>Learn what token decimals are and how to use them to make your token better.</p>
+                <p className={styles.arcticleDetails}>Henry - January 16th, 2023</p>
+            </div>
+            </Link>
             <Link href="/blog/blog-launch">
             <div className={styles.arcticle}>
                 <p className={styles.title}>Bedrock Finance Officially Launches Blog</p>

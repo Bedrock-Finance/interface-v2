@@ -44,7 +44,7 @@ export default function Factory(): JSX.Element {
 
     useEffect(() => {
         setIsClient(true);
-      }, []);
+    }, []);
 
 
     const [errorMenu, setErrorMenu] = useState(false);
@@ -79,7 +79,7 @@ export default function Factory(): JSX.Element {
         address: tokenDeployerDetails[chainId] as `0x${string}`,
         abi: tokenDeployerABI,
         functionName: 'creationFee',
-      });
+    });
 
     const { config,
         error: prepareError,
@@ -109,7 +109,7 @@ export default function Factory(): JSX.Element {
             isError: any
         } = useContractWrite(config);
 
-    const { isLoading: isLoadingTransaction, isSuccess: isSuccessTransaction, error: error_ } = useWaitForTransaction({
+    const { data: useWaitData, isLoading: isLoadingTransaction, isSuccess: isSuccessTransaction, error: error_ } = useWaitForTransaction({
         hash: data?.hash,
     });
 
@@ -119,7 +119,7 @@ export default function Factory(): JSX.Element {
 
     return (
         <div>
-            {isClient && (chainId && !tokenDeployerDetails[chainId]) && <ChangeNetwork changeNetworkToChainId={250} dappName={"BedrockMint"} networks={"Fantom, and Polygon"}/>}
+            {isClient && (chainId && !tokenDeployerDetails[chainId]) && <ChangeNetwork changeNetworkToChainId={250} dappName={"BedrockMint"} networks={"Fantom, Fantom Sonic Testnet, and Polygon"} />}
             <div className={styles.tokenDeployer}>
                 <p className={styles.title}>BedrockMint v1</p>
                 <p className={styles.inputDescription}>by Bedrock Finance</p>
@@ -175,9 +175,21 @@ export default function Factory(): JSX.Element {
                     className={`${styles.deployButton} ${!isPrepareError && isConnected && isFormFilled() && Number(decimals) >= 0 && Number(decimals) <= 18 && Number(supply) >= 0 && !(isLoadingTransaction || isLoadingWrite) ? "" : styles.disabled}`}
                     disabled={!isPrepareError && isConnected && isFormFilled() && Number(decimals) >= 0 && Number(decimals) <= 18 && Number(supply) >= 0 && !(isLoadingTransaction || isLoadingWrite) ? false : true}
                 >
-                    {isClient ? isConnected ? (isLoadingTransaction || isLoadingWrite) ? 'Minting...' : ("Deploy (" + String(deployFee && Number(deployFee) * 10**(-18)) + " " + String(chain ? (chain && chain.nativeCurrency.symbol) : "FTM")) + ")" : "Not Connected" : "Loading..."}
+                    {isClient ? isConnected ? (isLoadingTransaction || isLoadingWrite) ? 'Minting...' : ("Deploy (" + String(deployFee && Number(deployFee) * 10 ** (-18)) + " " + String(chain ? (chain && chain.nativeCurrency.symbol) : "FTM")) + ")" : "Not Connected" : "Loading..."}
                 </button>
                 <p className={styles.inputDescription}>(*) is a required field</p>
+                {isSuccessTransaction &&
+                    toast("Token successfully deployed! Go to My Tokens to check it out!", {
+                        toastId: String(useWaitData),
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    })}
                 {isClient && isConnected &&
                     <div className={styles.errorSection}>
                         {(isPrepareError) ?
@@ -187,18 +199,18 @@ export default function Factory(): JSX.Element {
                             </div>
                             :
                             <div className={styles.errorCollapsed}>
-                                { !isLoadingPrepare ?
-                                <p className={styles.errorHeader}>✅ All Clear</p> 
-                                :
-                                <p className={styles.errorHeader}>⏳ Loading</p>
+                                {!isLoadingPrepare ?
+                                    <p className={styles.errorHeader}>✅ All Clear</p>
+                                    :
+                                    <p className={styles.errorHeader}>⏳ Loading</p>
                                 }
                             </div>
                         }
                         {(errorMenu && isPrepareError) && (
                             !isLoadingPrepare ?
-                            <p className={styles.errorText}>{prepareError?.details ? capitalizeFirstLetter(prepareError?.details + ".") : (prepareError?.message.includes("v1: Invalid Decimals") ? "v1: Invalid Decimals" : capitalizeFirstLetter((prepareError?.message) + "."))}</p> 
-                            :
-                             <p className={styles.errorText}>Loading...</p>
+                                <p className={styles.errorText}>{prepareError?.details ? capitalizeFirstLetter(prepareError?.details + ".") : (prepareError?.message.includes("v1: Invalid Decimals") ? "v1: Invalid Decimals" : capitalizeFirstLetter((prepareError?.message) + "."))}</p>
+                                :
+                                <p className={styles.errorText}>Loading...</p>
                         )
                         }
                     </div>

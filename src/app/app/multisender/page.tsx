@@ -87,10 +87,8 @@ export default function Multisender(): JSX.Element {
                 addresses.push(array[0].startsWith('0x') ? array[0] : `0x${array[0]}`);
                 let value = new Decimal(Number(array[1]));
                 console.log(value.toString());
-                console.log(value.times(10**decimals));
                 values.push(BigInt(value.times(10**decimals).toString()));
             });
-            console.log("a")
             console.log(addresses);
             console.log(values);
             console.log(decimals);
@@ -181,7 +179,7 @@ export default function Multisender(): JSX.Element {
 
     return (
         <div>
-            {isClient && (chainId && !multisendDetails[chainId]) && <ChangeNetwork changeNetworkToChainId={250} dappName={"Multisender"} networks={"Fantom, Polygon and Fantom Testnet"}/>}
+            {isClient && (chainId && !multisendDetails[chainId]) && <ChangeNetwork changeNetworkToChainId={250} dappName={"Multisender"} networks={"Fantom, Polygon, Fantom Sonic Testnet and Fantom Testnet"}/>}
             <div className={styles.tokenDeployer}>
                 <p className={styles.title}>Multisender</p>
                 <p className={styles.inputDescription}>by Bedrock Finance</p>

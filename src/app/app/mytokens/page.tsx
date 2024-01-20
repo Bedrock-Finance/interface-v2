@@ -88,7 +88,8 @@ export default function MyTokens(): JSX.Element {
                     {isClient && contracts && !contracts[0] && (
                         <p className={styles.myTokensError}>No tokens available.</p>
                     )}
-                    {isClient && contracts && contracts[0] && tempTokenData && tempTokenData[0] && (splitData(tempTokenData)).map((token, index: number) => (
+                    {isClient && contracts && contracts[0] && tempTokenData && tempTokenData[0] && 
+                    ((splitData(tempTokenData)).reverse()).map((token, index: number) => (
                         <div key={index} className={styles.token}>
                             <p className={styles.tokenName}>{token.name} ({token.symbol})</p>
                             <p>Contract Address: {contracts && contracts[index]}</p>

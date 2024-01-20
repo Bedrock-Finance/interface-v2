@@ -179,16 +179,9 @@ export default function Factory(): JSX.Element {
                 </button>
                 <p className={styles.inputDescription}>(*) is a required field</p>
                 {isSuccessTransaction &&
-                    toast("Token successfully deployed! Go to My Tokens to check it out!", {
+                    toast.success("Token successfully deployed! Go to My Tokens to check it out!", {
                         toastId: String(useWaitData),
                         position: "top-right",
-                        autoClose: 5000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "light",
                     })}
                 {isClient && isConnected &&
                     <div className={styles.errorSection}>

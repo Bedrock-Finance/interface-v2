@@ -4,7 +4,7 @@ import styles from "./page.module.css";
 
 import Image from "next/image";
 
-import { Navbar } from "@/Components/navbar/navbar";
+import { NavbarMain } from "@/Components/navbarMain/navbarMain";
 import { Footer } from "@/Components/footer/footer";
 
 import Link from "next/link";
@@ -12,7 +12,7 @@ import Link from "next/link";
 export default function Home() {
     return (
         <>
-            <Navbar isApp={false} onOpenChange={() => {}}/>
+            <NavbarMain/>
             <div className={styles.topSection}>
                 <div className={styles.homeTitleContainer}>
                     <p className={styles.homeTitle}>The </p>

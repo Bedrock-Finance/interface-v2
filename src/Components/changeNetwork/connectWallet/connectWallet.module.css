@@ -4,12 +4,14 @@
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 10px;
-    background-color:#e3e3e3;
+    background-color:#ffffff;
     border-radius: 10px;
     max-width: 400px;
     width: 100%;
     z-index: 13;
     color: rgb(50,50,50);
+    border: 1px rgb(214, 214, 214) solid;
+    box-shadow: 0 0 300px rgba(0, 0, 0, 0.1);
 }
 
 .connectionOption {
@@ -19,10 +21,10 @@
     margin: 10px;
     font-size: 1.3em;
     border-radius: 10px;
-    background-color: #d3d3d3;
+    background-color: #ffffff;
     color: rgb(50,50,50);
     outline: none;
-    border: none;
+    border: 1px rgb(214, 214, 214) solid;
     cursor: pointer;
 }
 

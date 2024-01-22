@@ -1,0 +1,94 @@
+.navbar {
+    padding: 0 15px;
+    position: fixed;
+    display: block;
+    top: 0;
+    width: calc(100% - 30px);
+    z-index: 11;
+    color: rgb(102, 102, 102);
+    height: 48.333px;
+    background: none;
+    background-color: white;
+    border-bottom: 1px solid rgb(232, 232, 232);
+}
+
+.navbarLi {
+    float: right;
+    font-size: 18px;
+    line-height: 26.67px;
+    margin: 10px 5px;
+}
+
+.connectButton {
+    background-color: var(--accent);
+    border: none;
+    color: white;
+    border-radius: 25px;
+    width: fit-content;
+    cursor: pointer;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 2px 0px;
+}
+.connectText {
+    display: inline;
+    margin: none;
+    padding: 0 5px;
+    vertical-align: top;
+    margin: 0;
+}
+
+.navLogo {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 5px;
+    transform: scale(1.5);
+}
+
+.active {
+    display: inline-block;
+    cursor: pointer;
+}
+
+
+.navLeft {
+    float: left;
+}
+
+@media screen and (min-width: 600px) {
+    .menu {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 600px) and (min-width: 505px) {
+    .factoryButton {
+        display: none;
+    }
+
+    .menuIcon {
+        display: block;
+    }
+
+}
+
+@media screen and (max-width: 505px) {
+
+    .factoryButton,
+    .connectText {
+        display: none;
+    }
+
+    .menuIcon {
+        display: block;
+    }
+
+    .dropdownIcon {
+        margin-left: 5px;
+    }
+
+}
+
+@media screen and (max-width: 80px) {
+    .active {
+        display: none;
+    }
+}

@@ -1,7 +1,7 @@
 "use client";
 
 import styles from "./navbar.module.css";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useMemo, FC } from "react";
 
 import Image from 'next/image'
 import Link from "next/link";
@@ -13,37 +13,65 @@ import {
   useSwitchNetwork
 } from 'wagmi'
 
-import { useIsMounted } from "usehooks-ts";
-
 import { Overlay } from "../overlay/overlay";
-
-import { tokenDeployerDetails } from "@/Constants/config";
 
 import { chains } from "@/Constants/config";
 
 import { ConnectWallet } from "../changeNetwork/connectWallet/connectWallet";
 
-export function Navbar(
-  { isApp, onOpenChange }: { isApp: boolean, onOpenChange: ((newInfo: boolean) => void) | undefined }) {
-  const [menuOpen, setMenuOpen] = useState<boolean>(false);
+import { minidenticon } from 'minidenticons'
+
+interface MinidenticonImgProps {
+  username: string;
+  saturation: number;
+  lightness: number;
+  [key: string]: any;
+}
+
+const MinidenticonImg: FC<MinidenticonImgProps> = ({ username, saturation, lightness, ...props }) => {
+  const svgURI = useMemo(
+    () => 'data:image/svg+xml;utf8,' + encodeURIComponent(minidenticon(username, saturation, lightness)),
+    [username, saturation, lightness]
+  );
+
+  return <Image src={svgURI} alt={username} {...props} />;
+};
+
+export default MinidenticonImg;
+
+const menuItems = [
+  {
+    label: 'BedrockMint',
+    links: [
+      { text: 'BedrockMint', href: '/app/factory' },
+      { text: 'My Tokens', href: '/app/mytokens' },
+    ],
+  },
+  {
+    label: 'Multisender',
+    links: [
+      { text: 'Token Multisender', href: '/app/multisender' },
+    ],
+  },
+];
+
+const chainDetails = [
+  { name: "Fantom", chainId: 230, logo: "/assets/icons/logos/fantom.png" },
+  { name: "Polygon", chainId: 137, logo: "/assets/icons/logos/polygon.png" },
+  { name: "Fantom Testnet", chainId: 4002, logo: "/assets/icons/logos/fantom.png" },
+  { name: "Fantom Sonic", chainId: 64165, logo: "/assets/icons/logos/fantom.png" }
+]
+
+export function Navbar() {
   const [connectOpen, setConnectOpen] = useState<boolean>(false);
   const [connectMenuOpen, setConnectMenuOpen] = useState<boolean>(false);
   const [networkMenuOpen, setNetworkMenuOpen] = useState<boolean>(false);
   const [isClient, setIsClient] = useState<boolean>(false);
   const [tempNetwork, setTempNetwork] = useState<string>("Fantom");
-  const [isVerticalNavOpen, setIsVerticalNavOpen] = useState<boolean>(false);
-
-  const updateNavOpen = () => {
-    setIsVerticalNavOpen(!isVerticalNavOpen);
-    onOpenChange?.(!isVerticalNavOpen);
-  };
+  const [menusOpen, setMenusOpen] = useState<boolean[]>([false, false]);
 
   const { address, isConnected } = useAccount();
   const { disconnect } = useDisconnect();
-
-  const toggleMenuOpen = () => {
-    setMenuOpen(!menuOpen);
-  };
 
   const toggleConnectOpen = () => {
     setConnectOpen(!connectOpen);
@@ -52,6 +80,7 @@ export function Navbar(
   const toggleConnectMenuOpen = () => {
     if (!connectMenuOpen) {
       setNetworkMenuOpen(false);
+      setMenusOpen([]);
     }
     setConnectMenuOpen(!connectMenuOpen);
   };
@@ -59,12 +88,29 @@ export function Navbar(
   const toggleNetworkMenuOpen = () => {
     if (!networkMenuOpen) {
       setConnectMenuOpen(false);
+      setMenusOpen([]);
     }
     setNetworkMenuOpen(!networkMenuOpen);
   };
 
+  const toggleMenu = (index: number) => {
+    if (!menusOpen[index]) {
+      const updatedMenusOpen: boolean[] = [];
+      setConnectMenuOpen(false);
+      setNetworkMenuOpen(false);
+      updatedMenusOpen[index] = !updatedMenusOpen[index];
+      setMenusOpen(updatedMenusOpen);
+    } else {
+      const updatedMenusOpen: boolean[] = [];
+      setConnectMenuOpen(false);
+      setNetworkMenuOpen(false);
+      setMenusOpen(updatedMenusOpen);
+    }
+  };
+
   function dropdownAction(func: () => void): void {
     func();
+    setMenusOpen([]);
     setConnectMenuOpen(false);
     setNetworkMenuOpen(false);
   }
@@ -76,20 +122,18 @@ export function Navbar(
   useEffect(() => {
     setIsClient(true);
   }, []);
-  return (
 
+  return (
     <nav>
       {!isConnected && connectOpen && <Overlay onClick={toggleConnectOpen} />}
       {!isConnected && connectOpen && <ConnectWallet />}
       <div className={styles.navbar}>
-        {isApp && (isClient ? isConnected ?
+        {(isClient ? isConnected ?
           <div className={styles.connectButtonContainer}>
-            <div className={`${styles.navbarLi} ${styles.connectButtonWhite}`} onClick={toggleConnectMenuOpen}>
-              <div className={styles.walletIcon}>
-                <Image src="/assets/icons/wallet.svg" alt="wallet" width={15} height={15} className={styles.walletIconImage}></Image>
-              </div>
+            <div className={`${styles.navbarLi} ${styles.connectButtonWhite}`} onClick={toggleConnectMenuOpen} style={{ display: 'flex', alignItems: 'center' }}>
+              <MinidenticonImg username={String(address)} saturation={90} width={30} height={30} lightness={50} />
               <p className={`${styles.connectText}`}>{address ? (address?.slice(0, 6) + "..." + address?.slice(-4)) : "Error"}</p>
-              <Image src="/assets/icons/dropdown.svg" alt="dropdown" width={20} height={20} className={styles.dropdownIcon} />
+              <Image src="/assets/icons/dropdown.svg" alt="dropdown" width={15} height={15} className={styles.dropdownIcon} />
             </div>
             <div className={`${styles.dropdown} ${connectMenuOpen ? styles.connectMenuOpen : styles.connectMenuClosed}`}>
               <p className={styles.dropdownOption} onClick={() => dropdownAction(() => disconnect())}>Disconnect</p>
@@ -100,73 +144,90 @@ export function Navbar(
           </div>
           :
           <div className={`${styles.navbarLi} ${styles.connectButton}`} onClick={toggleConnectOpen}>
-            <p className={styles.connectButtonText}>Connect</p>
+            <p className={styles.connectText}>Connect</p>
           </div>
           :
           <div className={`${styles.navbarLi} ${styles.connectButton}`}>
-            <p className={styles.connectButtonText}>Loading...</p>
+            <p className={styles.connectText}>Loading...</p>
           </div>
         )}
-        {isApp && (isClient ? isConnected ?
+        {(isClient ? isConnected ?
           <div className={styles.connectButtonContainer}>
             <div className={`${styles.navbarLi} ${styles.connectButtonWhite}`} onClick={toggleNetworkMenuOpen}>
-              <div className={styles.walletIcon}>
-                <Image src="/assets/icons/wallet.svg" alt="wallet" width={15} height={15} className={styles.walletIconImage}></Image>
-              </div>
+              <Image
+                src={chainDetails.find((chain_) => chain_.name === (chain && chain.name))?.logo || "/assets/icons/logos/fantom.png"}
+                alt={chainDetails.find((chain_) => chain_.name === (chain && chain.name))?.name || "Fantom"}
+                width={23}
+                height={23}
+                className={styles.chainIcon}
+              />
               <p className={`${styles.connectText}`}>{chain ? chains.map(item => Number(item.id)).includes(chain.id) ? chain.name : "Unsupported" : "Error"}</p>
-              <Image src="/assets/icons/dropdown.svg" alt="dropdown" width={20} height={20} className={styles.dropdownIcon} />
+              <Image src="/assets/icons/dropdown.svg" alt="dropdown" width={15} height={15} className={styles.dropdownIcon} />
             </div>
             <div className={`${styles.dropdown} ${networkMenuOpen ? styles.connectMenuOpen : styles.connectMenuClosed}`}>
-              <p className={styles.dropdownOption} onClick={() => dropdownAction(() => switchNetwork?.(250))}>Fantom</p>
-              <p className={styles.dropdownOption} onClick={() => dropdownAction(() => switchNetwork?.(137))}>Polygon</p>
-              <p className={styles.dropdownOption} onClick={() => dropdownAction(() => switchNetwork?.(4002))}>Fantom Testnet</p>
-              <p className={styles.dropdownOption} onClick={() => dropdownAction(() => switchNetwork?.(64165))}>Fantom Sonic</p>
+              {chainDetails.map((chain) => (
+                <p
+                  key={chain.chainId}
+                  className={styles.dropdownOption}
+                  onClick={() => dropdownAction(() => switchNetwork?.(chain.chainId))}
+                >
+                  <Image src={chain.logo} alt={chain.name} className={styles.chainLogo} height={23} width={23} />
+                  {chain.name}
+                </p>
+              ))}
             </div>
           </div>
           :
           <div className={styles.connectButtonContainer}>
             <div className={`${styles.navbarLi} ${styles.connectButtonWhite}`} onClick={toggleNetworkMenuOpen}>
-              <div className={styles.walletIcon}>
-                <Image src="/assets/icons/wallet.svg" alt="wallet" width={15} height={15} className={styles.walletIconImage}></Image>
-              </div>
+              <Image
+                src={chainDetails.find((chain) => chain.name === tempNetwork)?.logo || "/assets/icons/logos/fantom.png"}
+                alt={chainDetails.find((chain) => chain.name === tempNetwork)?.name || "Fantom"}
+                width={23}
+                height={23}
+                className={styles.chainIcon}
+              />
               <p className={styles.connectText}>{tempNetwork}</p>
-              <Image src="/assets/icons/dropdown.svg" alt="dropdown" width={20} height={20} className={styles.dropdownIcon} />
+              <Image src="/assets/icons/dropdown.svg" alt="dropdown" width={15} height={15} className={styles.dropdownIcon} />
             </div>
             <div className={`${styles.dropdown} ${networkMenuOpen ? styles.connectMenuOpen : styles.connectMenuClosed}`}>
-              <p className={styles.dropdownOption} onClick={() => dropdownAction(() => setTempNetwork("Fantom"))}>Fantom</p>
-              <p className={styles.dropdownOption} onClick={() => dropdownAction(() => setTempNetwork("Polygon"))}>Polygon</p>
-              <p className={styles.dropdownOption} onClick={() => dropdownAction(() => setTempNetwork("Fantom Testnet"))}>Fantom Testnet</p>
-              <p className={styles.dropdownOption} onClick={() => dropdownAction(() => setTempNetwork("Fantom Sonic"))}>Fantom Sonic</p>
+              {chainDetails.map((chain) => (
+                <p
+                  key={chain.chainId}
+                  className={styles.dropdownOption}
+                  onClick={() => dropdownAction(() => setTempNetwork(chain.name))}
+                >
+                  <Image src={chain.logo} alt={chain.name} className={styles.chainLogo} height={23} width={23} />
+                  {chain.name}
+                </p>
+              ))}
             </div>
           </div>
           :
           <div className={`${styles.navbarLi} ${styles.connectButtonWhite}`}>
-            <p className={styles.connectButtonText}>Fantom</p>
+            <p className={styles.connectText}>Fantom</p>
           </div>
         )}
-        {isApp &&
-          <p onClick={updateNavOpen} className={`${styles.navLeft} ${styles.navbarLi} ${styles.active}`}>☰</p>
-        }
-        {!isApp &&
-          <Link href="/app/factory">
-            <div className={`${styles.navbarLi} ${styles.connectButton}`}>
-              <p className={styles.connectButtonText}>Launch App</p>
-            </div>
-          </Link>
-        }
-        {!isApp &&
-          <Link href="/blog">
-            <p className={`${styles.navbarLi} ${styles.active}`}>
-              Blog
-            </p>
-          </Link>
-        }
-        <Link href="/">
-          <p className={`${styles.navLeft} ${styles.navbarLi} ${styles.active}`}>
-            <Image alt="logo" src="/assets/bedrock.png" className={styles.navLogo} width={24} height={24} />
-            Bedrock
-          </p>
+        <Link href="/" className={`${styles.navLeft} ${styles.navbarLi} ${styles.active}`}>
+          <Image alt="logo" src="/assets/bedrock.png" className={styles.navLogo} width={24} height={24} />
         </Link>
+        {menuItems.map((item, index) => (
+          <div key={index} className={styles.navbarOptionsContainer}>
+            <div
+              className={`${styles.navLeft} ${styles.navbarLi} ${styles.active}`}
+              onClick={() => toggleMenu(index)}
+            >
+              <p className={styles.connectText}>{item.label}</p>
+            </div>
+            <div className={`${styles.dropdown} ${menusOpen[index] ? styles.connectMenuOpen : styles.connectMenuClosed}`}>
+              {item.links.map((link, linkIndex) => (
+                <Link key={linkIndex} href={link.href}>
+                  <p className={styles.dropdownOption}>{link.text}</p>
+                </Link>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
     </nav>
   );

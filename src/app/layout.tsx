@@ -2,11 +2,19 @@ import "./globals.css"
 
 import { Footer } from "@/Components/footer/footer";
 
+import { Inter } from 'next/font/google';
+
 import { config } from "@/Constants/config";
 import { WagmiConfig } from "wagmi";
 
 import { ToastContainer } from "react-toastify";
 import { Metadata } from "next";
+
+const font = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+})
+ 
 
 export const metadata: Metadata = {
   title: {
@@ -22,7 +30,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={font.className}>
       <body>
         <WagmiConfig config={config}>
           <ToastContainer />

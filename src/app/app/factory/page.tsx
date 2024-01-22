@@ -128,20 +128,18 @@ export default function Factory(): JSX.Element {
                     <input
                         onChange={setTokenName}
                         className={`${styles.tokenInput}`}
-                        placeholder="Your Token Name"
+                        placeholder="Bitcoin"
                         value={name}
                     />
-                    <p className={styles.inputDescription}>Example: Bitcoin</p>
                 </div>
                 <div className={styles.inputGroup}>
                     <p className={styles.inputTitle}>Token Symbol*</p>
                     <input
                         onChange={setTokenSymbol}
                         className={`${styles.tokenInput}`}
-                        placeholder="Your Token Symbol"
+                        placeholder="BTC"
                         value={symbol}
                     />
-                    <p className={styles.inputDescription}>Example: BTC</p>
                 </div>
                 <div className={styles.inputGroup}>
                     <p className={styles.inputTitle}>Token Supply*</p>
@@ -149,11 +147,10 @@ export default function Factory(): JSX.Element {
                         onKeyDown={(evt) => ["e", "E", "+", "-", "."].includes(evt.key) && evt.preventDefault()}
                         onChange={setTokenSupply}
                         className={`${styles.tokenInput}`}
-                        placeholder="Your Token Supply"
+                        placeholder="21000000"
                         type="number"
                         value={supply}
                     />
-                    <p className={styles.inputDescription}>Example: 21000000</p>
                 </div>
                 <div className={styles.inputGroup}>
                     <p className={styles.inputTitle}>Decimals</p>
@@ -161,14 +158,13 @@ export default function Factory(): JSX.Element {
                         onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
                         onChange={setTokenDecimals}
                         className={`${styles.tokenInput}`}
-                        placeholder="Your Token Decimals"
+                        placeholder="8"
                         type="number"
                         value={decimals}
                     />
                     {!(Number(decimals) >= 0 && Number(decimals) <= 18) && (
                         <p className={styles.error}>Decimals must be from 0 to 18</p>
                     )}
-                    <p className={styles.inputDescription}>Example: 8</p>
                 </div>
                 <button
                     onClick={() => write?.()}

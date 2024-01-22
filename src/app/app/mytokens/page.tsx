@@ -76,7 +76,7 @@ export default function MyTokens(): JSX.Element {
     }
 
     return (
-        <div>
+        <div className={styles.myTokens}>
             {isClient && (chainId && !tokenDeployerDetails[chainId]) && <ChangeNetwork changeNetworkToChainId={250} dappName={"BedrockMint"} networks={"Fantom, and Polygon"} />}
             <div className={styles.myTokensHeading}>
                 <p className={styles.heading}>My Tokens</p>

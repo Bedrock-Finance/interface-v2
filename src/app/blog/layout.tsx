@@ -1,5 +1,5 @@
 import { Footer } from "@/Components/footer/footer";
-import { Navbar } from "@/Components/navbar/navbar";
+import { NavbarMain } from "@/Components/navbarMain/navbarMain";
 
 import { Metadata } from "next";
 
@@ -15,7 +15,7 @@ export default function BlogLayout({
 }) {
     return (
         <>
-            <Navbar isApp={false} onOpenChange={undefined} />
+            <NavbarMain />
             {children}
             <Footer />
         </>

@@ -1,11 +1,14 @@
 .tokenDeployer {
-    max-width: 450px;
+    max-width: 500px;
     width: 100%;
     padding: 20px;
-    background-color: #e5e5e5;
+    background-color: #ffffff;
+    border: 1px rgb(214, 214, 214) solid;
     border-radius: 10px;
     margin: auto;
     margin-bottom: 100px;
+    margin-top: 75px;
+    box-shadow: 0 0 300px rgba(0, 0, 0, 0.1);
 }
 
 .inputGroup {
@@ -13,9 +16,9 @@
 }
 
 .inputTitle {
-    font-size: 1.2em;
+    font-size: 1em;
     margin-bottom: 5px;
-    color: rgb(50, 50, 50);
+    color: rgb(75, 75, 75);
 }
 
 .inputDescription {
@@ -31,9 +34,10 @@
     outline: none;
     width: calc(100% - 16px);
     transition: border-color 0.5s ease-in-out;
-    background-color: #d6d6d6;
-    color: rgb(50, 50, 50);
+    background-color: white;
+    color: rgb(75, 75, 75);
     border: none; 
+    border: 1px rgb(214, 214, 214) solid;
 }
 
 .deployButton {
@@ -52,23 +56,24 @@
 }
 
 .disabled {
-    opacity: 0.5;
+    background-color: rgb(174, 174, 174);
     cursor: not-allowed;
 }
 .title {
     font-size: 1.5em;
     margin: 0;
-    color: rgb(50, 50, 50);
+    color: rgb(69, 67, 78);
+    font-weight: bold;
 }
 .errorText {
-    color: rgb(50, 50, 50);
+    color: rgb(75, 75, 75);
     overflow-wrap: break-word;
 }
 .errorSection {
-    border: 1px solid gray;
+    border: 1px solid rgb(184, 184, 184);
     border-radius: 10px;
     padding: 20px;
-    background-color: rgb(215, 215, 215);
+    background-color: white;
 }
 .errorHeader {
     color: rgb(14, 14, 14);

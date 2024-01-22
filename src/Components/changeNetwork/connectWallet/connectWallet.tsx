@@ -29,10 +29,10 @@ export function ConnectWallet() {
             <p className={styles.connector}>
             {connector.name}
             </p>
-            {(!connector.ready && isMounted()) && ' (uninstalled)'}
+            {(!connector.ready && isMounted()) && <p className={styles.connector}>&emsp;(uninstalled)</p>}
             {isLoading &&
               connector.id === pendingConnector?.id &&
-              ' (connecting)'}
+              <p className={styles.connector}>&emsp;(connecting)</p>}
           </button>
         ))}
   

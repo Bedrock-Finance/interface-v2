@@ -130,7 +130,7 @@ export function Navbar() {
       <div className={styles.navbar}>
         {(isClient ? isConnected ?
           <div className={styles.connectButtonContainer}>
-            <div className={`${styles.navbarLi} ${styles.connectButtonWhite}`} onClick={toggleConnectMenuOpen} style={{ display: 'flex', alignItems: 'center' }}>
+            <div className={`${styles.navbarLi}`} onClick={toggleConnectMenuOpen}>
               <MinidenticonImg username={String(address)} saturation={90} width={30} height={30} lightness={50} />
               <p className={`${styles.connectText}`}>{address ? (address?.slice(0, 6) + "..." + address?.slice(-4)) : "Error"}</p>
               <Image src="/assets/icons/dropdown.svg" alt="dropdown" width={15} height={15} className={styles.dropdownIcon} />
@@ -153,7 +153,7 @@ export function Navbar() {
         )}
         {(isClient ? isConnected ?
           <div className={styles.connectButtonContainer}>
-            <div className={`${styles.navbarLi} ${styles.connectButtonWhite}`} onClick={toggleNetworkMenuOpen}>
+            <div className={`${styles.navbarLi}`} onClick={toggleNetworkMenuOpen}>
               <Image
                 src={chainDetails.find((chain_) => chain_.name === (chain && chain.name))?.logo || "/assets/icons/logos/fantom.png"}
                 alt={chainDetails.find((chain_) => chain_.name === (chain && chain.name))?.name || "Fantom"}
@@ -171,7 +171,7 @@ export function Navbar() {
                   className={styles.dropdownOption}
                   onClick={() => dropdownAction(() => switchNetwork?.(chain.chainId))}
                 >
-                  <Image src={chain.logo} alt={chain.name} className={styles.chainLogo} height={23} width={23} />
+                  <Image src={chain.logo} alt={chain.name} className={styles.chainLogo} height={30} width={30} />
                   {chain.name}
                 </p>
               ))}
@@ -179,7 +179,7 @@ export function Navbar() {
           </div>
           :
           <div className={styles.connectButtonContainer}>
-            <div className={`${styles.navbarLi} ${styles.connectButtonWhite}`} onClick={toggleNetworkMenuOpen}>
+            <div className={`${styles.navbarLi}`} onClick={toggleNetworkMenuOpen}>
               <Image
                 src={chainDetails.find((chain) => chain.name === tempNetwork)?.logo || "/assets/icons/logos/fantom.png"}
                 alt={chainDetails.find((chain) => chain.name === tempNetwork)?.name || "Fantom"}
@@ -205,6 +205,13 @@ export function Navbar() {
           </div>
           :
           <div className={`${styles.navbarLi} ${styles.connectButtonWhite}`}>
+            <Image
+                src="/assets/icons/logos/fantom.png"
+                alt="Fantom"
+                width={23}
+                height={23}
+                className={styles.chainIcon}
+              />
             <p className={styles.connectText}>Fantom</p>
           </div>
         )}
@@ -219,7 +226,7 @@ export function Navbar() {
             >
               <p className={styles.connectText}>{item.label}</p>
             </div>
-            <div className={`${styles.dropdown} ${menusOpen[index] ? styles.connectMenuOpen : styles.connectMenuClosed}`}>
+            <div className={`${styles.dropdownLeft} ${menusOpen[index] ? styles.connectMenuOpen : styles.connectMenuClosed}`}>
               {item.links.map((link, linkIndex) => (
                 <Link key={linkIndex} href={link.href}>
                   <p className={styles.dropdownOption}>{link.text}</p>

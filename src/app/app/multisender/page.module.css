@@ -1,6 +1,6 @@
 .tokenDeployer {
     max-width: 500px;
-    width: 100%;
+    width: calc(100% - 80px);
     padding: 20px;
     background-color: #ffffff;
     border: 1px rgb(214, 214, 214) solid;

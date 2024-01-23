@@ -17,6 +17,9 @@
     font-size: 18px;
     line-height: 26.67px;
     margin: 10px 5px;
+    display: flex;
+    align-items: center;
+    height: 26.67px;
 }
 
 .navbarOption {
@@ -106,8 +109,7 @@
 
 .connectButtonContainer {
     float: right;
-    display: flex;
-    align-items: center;
+    position: relative;
 }
 
 .navbarOptionsContainer {
@@ -127,7 +129,7 @@
     margin-right: 5px;
 }
 
-.dropdown {
+.dropdownLeft {
     display: block;
     position: absolute;
     top: 55px;
@@ -139,6 +141,17 @@
     color: black;
     float: left;
     overflow: hidden;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.dropdown {
+    right: 0;
+    position: absolute;
+    top: 55px;
+    background-color: white;
+    border-radius: 10px;
+    border: 1px solid rgb(225, 225, 225);
+    min-width: 175px;
+    color: black;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 .identicon {
@@ -174,46 +187,42 @@
     display: none;
 }
 
-.menuIcon {
+.dropbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .dropdownNew {
+    position: relative;
+    float: right;
+  }
+  
+  .dropdownContent {
     display: none;
-}
+    position: absolute;
+    right: 0;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    top: 55px;
+    
+  }
+  
+  .dropdownNew:hover .dropdownContent {
+    display: block;
+  }
+  
+  .dropdownNew:hover .dropbtn {
+    background-color: #3e8e41;
+  }
 
-@media screen and (min-width: 600px) {
-    .menu {
-        display: none;
-    }
-}
-
-@media screen and (max-width: 600px) and (min-width: 505px) {
-    .factoryButton {
-        display: none;
-    }
-
-    .menuIcon {
-        display: block;
-    }
-
-}
-
-@media screen and (max-width: 505px) {
-
-    .factoryButton,
+@media screen and (max-width: 650px) {
     .connectText {
-        display: none;
-    }
-
-    .menuIcon {
-        display: block;
-    }
-
-    .dropdownIcon {
-        margin-left: 5px;
-    }
-
-}
-
-@media screen and (max-width: 80px) {
-    .active {
         display: none;
     }
 }

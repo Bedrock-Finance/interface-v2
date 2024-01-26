@@ -220,9 +220,15 @@
   .dropdownNew:hover .dropbtn {
     background-color: #3e8e41;
   }
+  .toShow {
+    display: none;
+}
 
-@media screen and (max-width: 650px) {
-    .connectText {
+@media screen and (max-width: 620px) {
+    .toHide {
         display: none;
+    }
+    .toShow {
+        display: block;
     }
 }

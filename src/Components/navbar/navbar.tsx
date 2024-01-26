@@ -19,7 +19,9 @@ import { chains } from "@/Constants/config";
 
 import { ConnectWallet } from "../changeNetwork/connectWallet/connectWallet";
 
-import { minidenticon } from 'minidenticons'
+import { minidenticon } from 'minidenticons';
+
+import { MobileNav } from "../mobileNav/navbar";
 
 interface MinidenticonImgProps {
   username: string;
@@ -127,12 +129,15 @@ export function Navbar() {
     <nav>
       {!isConnected && connectOpen && <Overlay onClick={toggleConnectOpen} />}
       {!isConnected && connectOpen && <ConnectWallet />}
+      <div className={styles.toShow}>
+        <MobileNav />
+      </div>
       <div className={styles.navbar}>
         {(isClient ? isConnected ?
           <div className={styles.connectButtonContainer}>
             <div className={`${styles.navbarLi}`} onClick={toggleConnectMenuOpen}>
               <MinidenticonImg username={String(address)} saturation={90} width={30} height={30} lightness={50} />
-              <p className={`${styles.connectText}`}>{address ? (address?.slice(0, 6) + "..." + address?.slice(-4)) : "Error"}</p>
+              <p className={`${styles.connectText} ${styles.toHide}`}>{address ? (address?.slice(0, 6) + "..." + address?.slice(-4)) : "Error"}</p>
               <Image src="/assets/icons/dropdown.svg" alt="dropdown" width={15} height={15} className={styles.dropdownIcon} />
             </div>
             <div className={`${styles.dropdown} ${connectMenuOpen ? styles.connectMenuOpen : styles.connectMenuClosed}`}>
@@ -161,7 +166,7 @@ export function Navbar() {
                 height={23}
                 className={styles.chainIcon}
               />
-              <p className={`${styles.connectText}`}>{chain ? chains.map(item => Number(item.id)).includes(chain.id) ? chain.name : "Unsupported" : "Error"}</p>
+              <p className={`${styles.connectText} ${styles.toHide}`}>{chain ? chains.map(item => Number(item.id)).includes(chain.id) ? chain.name : "Unsupported" : "Error"}</p>
               <Image src="/assets/icons/dropdown.svg" alt="dropdown" width={15} height={15} className={styles.dropdownIcon} />
             </div>
             <div className={`${styles.dropdown} ${networkMenuOpen ? styles.connectMenuOpen : styles.connectMenuClosed}`}>
@@ -187,7 +192,7 @@ export function Navbar() {
                 height={23}
                 className={styles.chainIcon}
               />
-              <p className={styles.connectText}>{tempNetwork}</p>
+              <p className={`${styles.connectText} ${styles.toHide}`}>{tempNetwork}</p>
               <Image src="/assets/icons/dropdown.svg" alt="dropdown" width={15} height={15} className={styles.dropdownIcon} />
             </div>
             <div className={`${styles.dropdown} ${networkMenuOpen ? styles.connectMenuOpen : styles.connectMenuClosed}`}>
@@ -206,13 +211,13 @@ export function Navbar() {
           :
           <div className={`${styles.navbarLi} ${styles.connectButtonWhite}`}>
             <Image
-                src="/assets/icons/logos/fantom.png"
-                alt="Fantom"
-                width={23}
-                height={23}
-                className={styles.chainIcon}
-              />
-            <p className={styles.connectText}>Fantom</p>
+              src="/assets/icons/logos/fantom.png"
+              alt="Fantom"
+              width={23}
+              height={23}
+              className={styles.chainIcon}
+            />
+            <p className={`${styles.connectText} ${styles.toHide}`}>Fantom</p>
           </div>
         )}
         <Link href="/" className={`${styles.navLeft} ${styles.navbarLi} ${styles.active}`}>
@@ -224,7 +229,7 @@ export function Navbar() {
               className={`${styles.navLeft} ${styles.navbarLi} ${styles.active}`}
               onClick={() => toggleMenu(index)}
             >
-              <p className={styles.connectText}>{item.label}</p>
+              <p className={`${styles.connectText} ${styles.toHide}`}>{item.label}</p>
             </div>
             <div className={`${styles.dropdownLeft} ${menusOpen[index] ? styles.connectMenuOpen : styles.connectMenuClosed}`}>
               {item.links.map((link, linkIndex) => (

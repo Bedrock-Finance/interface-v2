@@ -209,7 +209,7 @@ export default function Multisender(): JSX.Element {
                     {!isValid && (
                         <p className={styles.error}>Invalid values</p>
                     )}
-                    {isToken && (!allowance ? true : (values.reduce((acc, curr) => acc + Number(curr), Number(0)) === 0 ? true : (Number(allowance) < values.reduce((acc, curr) => acc + Number(curr), Number(0))))) &&
+                    {isClient && isConnected && (Number(allowance) < values.reduce((acc, curr) => acc + Number(curr), Number(0))) && isToken &&
                         (<button
                             onClick={() => writeApprove?.()}
                             className={`${styles.deployButton} ${isClient && !isError && !(Number.isNaN(Number(allowance))) && !isLoading && isConnected && isValid && !(isLoadingTransactionApprove || isLoadingWriteApprove) ? "" : styles.disabled}`}
@@ -226,7 +226,7 @@ export default function Multisender(): JSX.Element {
                             : "Loading..."}
                         </button>)
                     }
-                    {(!isToken ? true : !isConnected ? true : Number(allowance) >= values.reduce((acc, curr) => acc + Number(curr), Number(0))) &&
+                    {isClient && isConnected && (!isToken ? true : (Number(allowance) >= values.reduce((acc, curr) => acc + Number(curr), Number(0)))) &&
                         <button
                             onClick={() => write?.()}
                             className={`${styles.deployButton} ${isClient && !isPrepareError && !isLoadingPrepare && isConnected && isValid && !(isLoadingTransaction || isLoadingWrite) ? "" : styles.disabled}`}

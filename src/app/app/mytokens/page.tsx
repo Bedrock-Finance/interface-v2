@@ -89,10 +89,10 @@ export default function MyTokens(): JSX.Element {
                         <p className={styles.myTokensError}>No tokens available.</p>
                     )}
                     {isClient && contracts && contracts[0] && tempTokenData && tempTokenData[0] && 
-                    ((splitData(tempTokenData)).reverse()).map((token, index: number) => (
+                    ((splitData(tempTokenData).reverse())).map((token, index: number) => (
                         <div key={index} className={styles.token}>
                             <p className={styles.tokenName}>{token.name} ({token.symbol})</p>
-                            <p>Contract Address: {contracts && contracts[index]}</p>
+                            <p>Contract Address: {contracts && contracts.toReversed()[index]}</p>
                             <p>Supply: {Number(token.supply) / 10 ** (token.decimals)}</p>
                             <p>Decimals: {token.decimals}</p>
                         </div>

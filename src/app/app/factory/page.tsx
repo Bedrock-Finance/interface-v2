@@ -178,7 +178,7 @@ export default function Factory(): JSX.Element {
                     toast.success("Token successfully deployed! Go to My Tokens to check it out!", {
                         toastId: String(useWaitData),
                         position: "top-right",
-                    })}
+                    }) && ""}
                 {isClient && isConnected &&
                     <div className={styles.errorSection}>
                         {(isPrepareError) ?

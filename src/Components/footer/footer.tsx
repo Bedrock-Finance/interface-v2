@@ -24,6 +24,10 @@ export const Footer = () => {
                 <Image src="/assets/icons/discord.svg" alt="discord" height={25} width={25} className={styles.footerIcon} />
                 <p className={styles.footerElementText}>Discord</p>
             </Link>
+            <Link target="_blank" href="https://t.me/bedrockfinance" className={styles.footerElement}>
+                <Image src="/assets/icons/telegram.svg" alt="telegram" height={25} width={25} className={styles.footerIcon} />
+                <p className={styles.footerElementText}>Telegram</p>
+            </Link>
             </div>
             <div className={styles.footerSection}>
             <p className={styles.footerHeader}>Apps</p>

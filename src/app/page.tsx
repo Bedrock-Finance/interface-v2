@@ -110,7 +110,7 @@ export default function Home() {
             </div>
             </Link>
             </div>
-            <br></br>
+            
             <Footer />
         </>
     )

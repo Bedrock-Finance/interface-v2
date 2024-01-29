@@ -1,5 +1,7 @@
 :root {
   --accent: rgb(58, 120, 255);
+  --background: rgb(255, 255, 255);
+  --border: 1px rgb(214, 214, 214) solid;
 }
 
 body, textarea {
